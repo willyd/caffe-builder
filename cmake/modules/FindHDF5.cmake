@@ -1,0 +1,10 @@
+message(STATUS "Using custom FindHDF5 module")
+set(HDF5_DIR "${CMAKE_INSTALL_PREFIX}/CMake" CACHE PATH "")
+find_package(HDF5 CONFIG 
+                  COMPONENTS ${${CMAKE_FIND_PACKAGE_NAME}_FIND_COMPONENTS}
+                  NO_CMAKE_PACKAGE_REGISTRY 
+                  NO_CMAKE_SYSTEM_PACKAGE_REGISTRY)
+if(HDF5_FOUND)
+    set(HDF5_HL_INCLUDE_DIR ${HDF5_INCLUDE_DIR_HL})
+    set(HDF5_INCLUDE_DIRS ${HDF5_INCLUDE_DIR})
+endif()
