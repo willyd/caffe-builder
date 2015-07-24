@@ -25,6 +25,11 @@ CMake will download all the sources and files required to compile Caffe and its 
     
 Alternatively you can build the caffe-builder.sln by opening it in Visual Studio. Build only one configuration as the project is setup to build the two configuration for each project in batch.
 After some time you should have both Debug and Release binaries for Caffe and all its dependencies in the build\install folder. All libraries are built as static libraries. Please note that building Caffe as a shared library is not supported right now with Visual Studio.
+
+### Known issues
+* Sometimes a download will fail. This seems to happen only for archives downloaded from sourceforge. Executing cmake (or clicking the Configure button in CMake-Gui) usually solves the problems.
+* Even though LMDB builds successfully it does not work and hence the related Caffe tests will fail. This most likely related to this: https://groups.google.com/forum/#!topic/caffe-users/0RKsTTYRGpQ
+* For some reasons the implementation of usleep on Windows does not stop the cuda threads and four Caffe tests fail.
     
 
 
