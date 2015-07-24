@@ -30,7 +30,14 @@ After some time you should have both Debug and Release binaries for Caffe and al
 * Sometimes a download will fail. This seems to happen only for archives downloaded from sourceforge. Executing cmake (or clicking the Configure button in CMake-Gui) usually solves the problems.
 * Even though LMDB builds successfully it does not work and hence the related Caffe tests will fail. This most likely related to this: https://groups.google.com/forum/#!topic/caffe-users/0RKsTTYRGpQ
 * For some reasons the implementation of usleep on Windows does not stop the cuda threads and four Caffe tests fail.
-    
+* When Caffe-Builder builds boost it may output errors to the Error List Window in Visual Studio. You can safely ignore the following errors:
+    * Error	334	error C1189: #error :  "Not SPARC"	
+    * Error	333	error C1189: #error :  "Not PPC"	
+    * Error	332	error C1189: #error :  "Not MIPS1"	
+    * Error	331	error C1189: #error :  "Not ARM"	
+    * Error	335	error C1083: Cannot open include file: 'unicode/uversion.h': No such file or directory	
+
+
 
 
 
