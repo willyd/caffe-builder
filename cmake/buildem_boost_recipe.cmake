@@ -36,7 +36,7 @@ macro(buildem_boost_recipe )
 	endif()
 	
     set(_binary_dir ${CMAKE_CURRENT_BINARY_DIR}/Boost-prefix/src/Boost-build)
-	file(TO_NATIVE_PATH ${CMAKE_INSTALL_PREFIX} _prefix)
+	file(TO_NATIVE_PATH ${CMAKE_INSTALL_PREFIX}/Boost _prefix)
 	set(Boost_OPTS threading=multi variant=debug,release runtime-link=shared link=${Boost_LINK} toolset=${Boost_TOOLSET} address-model=${Boost_ADDRESS_MODEL} install --prefix=${_prefix} --build-dir=${_binary_dir})
 	
 	if(buildem_br_arg_COMPONENTS)

@@ -17,10 +17,10 @@ macro(buildem_cmake_recipe )
 	buildem_debug_arguments(buildem_cmake_recipe 
 							buildem_cr_arg
 							${options} ${oneValueArgs} ${multiValueArgs})
-    
-    message("${CMAKE_MODULE_PATH}")
-	set(_default_cmake_args -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_INSTALL_PREFIX} -DCMAKE_MODULE_PATH:PATH=${CMAKE_MODULE_PATH})
-	set(_name ${buildem_cr_arg_NAME})
+      
+  set(_name ${buildem_cr_arg_NAME})
+	set(_default_cmake_args -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_INSTALL_PREFIX}/${_name} -DCMAKE_MODULE_PATH:PATH=${CMAKE_MODULE_PATH})
+	
 	set(_source_dir ${buildem_cr_arg_SOURCE_DIR})
     externalproject_add(${_name}
 						DEPENDS ${buildem_cr_arg_DEPENDS}
