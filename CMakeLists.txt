@@ -10,6 +10,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 set(BUILDEM_DOWNLOAD_CACHE ${CMAKE_CURRENT_BINARY_DIR}/DownloadCache)
 
+option(BUILD_DebugAndRelease "Build both configuration in batch" ON)
+
 include(buildem_all)
 
 # order is important dependees go before dependers

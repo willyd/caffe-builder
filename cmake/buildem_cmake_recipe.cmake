@@ -5,7 +5,7 @@ include(buildem_status)
 macro(buildem_cmake_recipe )
     set(options )	
     set(oneValueArgs NAME SOURCE_DIR)
-	set(multiValueArgs CMAKE_ARGS DEPENDS)
+	  set(multiValueArgs CMAKE_ARGS DEPENDS)
 	
 	cmake_parse_arguments(buildem_cr_arg
 						  "${options}" 
@@ -31,7 +31,7 @@ macro(buildem_cmake_recipe )
 
 	
 	externalproject_get_property(${_name} BINARY_DIR)
-	if(MSVC)		
+	if(MSVC AND BUILD_DebugAndRelease)		
 		externalproject_add_step(${_name} BuildOtherConfig
 							COMMAND ${CMAKE_COMMAND} --build ${BINARY_DIR} --config "$<$<CONFIG:Debug>:Release>$<$<CONFIG:Release>:Debug>" --target INSTALL
 							DEPENDEES install
