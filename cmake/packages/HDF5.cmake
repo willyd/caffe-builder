@@ -3,7 +3,7 @@ include(buildem_download_package)
 include(buildem_cmake_recipe)
 
 
-buildem_download_package(URL  "https://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.15-patch1.zip"
+buildem_download_package(URL  "https://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.15-patch1/src/hdf5-1.8.15-patch1.zip"
                          SOURCE_DIR HDF5_SOURCE_DIR
                         )
 
