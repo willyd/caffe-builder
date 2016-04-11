@@ -6,5 +6,5 @@ function Unzip
     [System.IO.Compression.ZipFile]::ExtractToDirectory($zipfile, $outpath)
 }
 
-wget https://github.com/ninja-build/ninja/releases/download/v1.6.0/ninja-win.zip ninja-win.zip
+wget https://github.com/ninja-build/ninja/releases/download/v1.6.0/ninja-win.zip -OutFile .\ninja-win.zip
 Unzip ninja-win.zip $pwd

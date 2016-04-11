@@ -4,6 +4,8 @@ build_script:
     call download_ninja.cmd
 
     set path=%path%;%cd%
+    
+    call setenv.cmd 120 64
 
     mkdir build
 
