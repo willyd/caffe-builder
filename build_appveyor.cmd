@@ -8,8 +8,8 @@ set path=%path%;%cd%
 call setenv.cmd 120 64
 
 :: Create build_directory and cd to it
-mkdir build
-cd build
+if NOT EXIST .\build (mkdir .\build)
+cd .\build
 
 :: Configure with CMake and build
 cmake -GNinja -C ..\cmake\configs\Appveyor.cmake ..\

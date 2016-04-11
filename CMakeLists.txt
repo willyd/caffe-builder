@@ -10,6 +10,7 @@ include(ForceDependentOption)
 option(BUILD_SHARED_LIBS "Build static or shared libs" OFF)
 set(BUILD_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Build the given configs")
 set (CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/install" CACHE PATH "Path where to install binaries" FORCE)
+set (DEFAULT_SOURCE_DIR "" CACHE PATH "Path where the sources should be downloaded")
 
 # copy all the Find*.cmake modules to the install directory
 file(GLOB _find_modules ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/*.cmake)
