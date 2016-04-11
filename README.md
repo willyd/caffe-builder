@@ -3,6 +3,8 @@ Super-Builder (previously known as Caffe-Builder) is a set of CMake scripts (usi
 
 Using this project will (hopefully) make building, installing and using open source libraries on Windows much easier. 
 
+[![Build status](https://ci.appveyor.com/api/projects/status/cks08mgov46p76y6/branch/master?svg=true)](https://ci.appveyor.com/project/willyd/caffe-builder/branch/master)
+
 ## Building libraries
 ### Get the Prerequisites
 * CMake (tested with 3.4)

@@ -1,16 +1,4 @@
 version: 1.0.{build}
 build_script:
 - cmd: >-
-    call download_ninja.cmd
-
-    set path=%path%;%cd%
-    
-    call setenv.cmd 120 64
-
-    mkdir build
-
-    cd build
-
-    cmake -GNinja -C ..\cmake\configs\Appveyor.cmake ..\
-
-    ninja
+    call build_appveyor.cmd
