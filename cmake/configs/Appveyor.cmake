@@ -6,7 +6,7 @@ set(DEFAULT_SOURCE_DIR "${CMAKE_BINARY_DIR}/sources" CACHE PATH "" FORCE)
 # build only selected libraries for now
 set(BUILD_ZLIB ON CACHE BOOL "" FORCE)
 set(BUILD_HDF5 ON CACHE BOOL "" FORCE)
-set(BUILD_BOOST OFF CACHE BOOL "" FORCE)
+set(BUILD_BOOST ON CACHE BOOL "" FORCE)
 # build selected boost components
 set(BOOST_COMPONENTS atomic chrono date_time filesystem python system thread CACHE STRING "" FORCE)
 set(BUILD_LEVELDB OFF CACHE BOOL "" FORCE)
