@@ -2,3 +2,6 @@ version: 1.0.{build}
 build_script:
 - cmd: >-
     call build_appveyor.cmd
+    
+artifacts:
+- path: build\install
