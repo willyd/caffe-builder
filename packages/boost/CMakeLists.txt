@@ -12,6 +12,8 @@ set(LOCATIONS "${CMAKE_CURRENT_SOURCE_DIR}/boost_1_60_0"
 			  "${CMAKE_CURRENT_SOURCE_DIR}/boost_1_60_0.7z"
 			  "http://downloads.sourceforge.net/project/boost/boost/1.60.0/boost_1_60_0.7z"
 )
+
+unset(PROJECT_URL)
 foreach(_loc ${LOCATIONS})
 	if(EXISTS "${_loc}")
 		set(PROJECT_URL "${_loc}")	
@@ -20,7 +22,7 @@ foreach(_loc ${LOCATIONS})
 endforeach()
 
 if(NOT PROJECT_URL)
-	set(PROJECT_URL "${_loc}")
+	set(PROJECT_URL "http://downloads.sourceforge.net/project/boost/boost/1.60.0/boost_1_60_0.7z")
 endif()
 
 # a download target
