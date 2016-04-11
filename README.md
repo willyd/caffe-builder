@@ -43,10 +43,6 @@ The libraries will be installed in build\install. Alongside the libraries a seri
     cmd> mkdir build
     cmd> cd build
     cmd> cmake -G <generator name> -C %super_builder_root%\super-builder\build\install\InitialCache.cmake
-    
-    
-    
-
 
 
 
