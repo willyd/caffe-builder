@@ -1,0 +1,14 @@
+version: 1.0.{build}
+build_script:
+- cmd: >-
+    call download_ninja.cmd
+
+    set path=%path%;%cd%
+
+    mkdir build
+
+    cd build
+
+    cmake -GNinja -C ..\cmake\configs\Appveyor.cmake ..\
+
+    ninja
