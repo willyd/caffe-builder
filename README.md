@@ -1,30 +1,50 @@
-# Caffe-Builder
-Caffe-Builder is a set of CMake scripts (using CMake's ExternalProject) that automate the build and installation of the Caffe library and its dependencies.
+# Super-Builder
+Super-Builder (previously known as Caffe-Builder) is a set of CMake scripts (using CMake's ExternalProject) that automate the build and installation of popular C/C++ open source libraries on Windows using microsoft toolchain.
 
-Using this project will (hopefully) make building and installation of Caffe on Windows much easier. 
+Using this project will (hopefully) make building, installing and using open source libraries on Windows much easier. 
 
-## Building Caffe with Caffe-Builder
+## Building libraries
 ### Get the Prerequisites
-* CMake (tested with 3.2)
+* CMake (tested with 3.4)
 * Visual Studio (tested with 2013 in 64 bit mode)
 * Git
-* CUDA (tested with 7.0) for GPU support
+* [Ninja](https://github.com/ninja-build/ninja/releases/download/v1.6.0/ninja-win.zip)
 
-### Clone this repository:    
-    cmd> git clone https://github.com/willyd/caffe-builder.git caffe-builder
+Make sure CMake, Git and Ninja are in your path.
+
+### Optional dependencies
+* CUDA (tested with 7.0) for GPU support in opencv and other libraries
+* Python (tested with 2.7.x) to build boost.python for example
+
+### Clone this repository:
+    cmd> cd %super_builder_root%    
+    cmd> git clone https://github.com/willyd/super-builder.git super-builder
         
-### Create a build directory and configure CMake to build Caffe-Builder inside:
-    cmd> md ..\build
-    cmd> cd ..\build
-    cmd> cmake -G "<your generator>" ..\caffe-builder
+### Create a build directory and configure CMake to build super-builder inside:
+    cmd> mkdir build
+    cmd> cd build
+    :: Set the Visual Studio envrionment for ninja (120 -> Visual Studio 2013, 64 -> amd64) 
+    cmd> ..\setenv.cmd 120 64 
+    :: Configure cmake
+    cmd> cmake -GNinja -C ..\cmake\configs\Default.cmake ..\   
     
-CMake will download all the sources and files required to compile Caffe and its dependencies to the folder build\DownloadCache. This can take some time.
+### Build and installing the libraries
+    :: This will build all libraries that were configured to build with the BUILD_* options (see below)
+    cmd> ninja
+    :: Or alternatively
+    cmd> ninja <libname>
+    :: You can execute this command to list all possible targets
+    cmd> ninja -t targets
     
-### Build the project
-    cmd> cmake --build .
+The libraries will be installed in build\install. Alongside the libraries a series of Find*.cmake files will be installed and a InitialCache.cmake file will be installed too.    
     
-Alternatively you can build the caffe-builder.sln by opening it in Visual Studio. Build only one configuration as the project is setup to build the two configuration for each project in batch.
-After some time you should have both Debug and Release binaries for Caffe and all its dependencies in the build\install folder. All libraries are built as static libraries. Please note that building Caffe as a shared library is not supported right now with Visual Studio.
+### Using the built libraries in your project
+    cmd> cd myproject
+    cmd> mkdir build
+    cmd> cd build
+    cmd> cmake -G <generator name> -C %super_builder_root%\super-builder\build\install\InitialCache.cmake
+    
+    
     
 
 

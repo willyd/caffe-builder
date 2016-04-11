@@ -1,0 +1,6 @@
+macro(force_dependent_option opt1 opt2)
+    if(${opt1} AND NOT ${opt2})
+        message(WARNING "Forcing ${opt2} to ON because of ${opt1}")
+        set(${opt2} ON CACHE BOOL "" FORCE)
+    endif()
+endmacro()
