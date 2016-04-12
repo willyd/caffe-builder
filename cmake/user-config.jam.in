@@ -1,0 +1,7 @@
+using python
+    : 2.7
+    : @PYTHON27_PREFIX@/python.exe
+    : #
+    : #
+    : <address-model>@ADDRESS_MODEL@
+    ;

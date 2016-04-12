@@ -24,12 +24,21 @@ macro(add_build_targets )
     cmake_parse_arguments(adt "${options}" "${oneValueArgs}"
                           "${multiValueArgs}" ${ARGN} )
                           
-                              
+                                  
     if(CMAKE_SIZEOF_VOID_P STREQUAL "8")
-        set(_address_model "address-model=64")
+        set(_address_model_value "64")
+        set(_address_model "address-model=64")               
     else()
+        set(_address_model_value "32")
         set(_address_model "address-model=32")
     endif()
+    
+    unset(_user_config)
+    if(PYTHON27_PREFIX)
+        set(ADDRESS_MODEL ${_address_model_value})
+        configure_file(${CMAKE_SOURCE_DIR}/cmake/user-config.jam.in ${SOURCE_DIR}/cmake/user-config.jam @ONLY)
+    endif()
+    
     if(BUILD_SHARED_LIBS)
         set(_link "link=shared")
     else()
