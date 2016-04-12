@@ -20,6 +20,6 @@ add_build_targets(CMAKE_ARGS -DHDF5_ENABLE_Z_LIB_SUPPORT=ON
 				  -DBUILD_TESTING=OFF
 				  -DHDF5_BUILD_EXAMPLES=OFF
 				  -DHDF5_BUILD_TOOLS=OFF
-				  DEPENDS ZLIB
+				   DEPENDS ZLIB
 				  )
                     

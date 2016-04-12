@@ -18,5 +18,6 @@ ExternalProject_Get_Property("${PROJECT_NAME}_download" SOURCE_DIR)
 set(CMAKE_DEBUG_POSTFIX "d")
 # add build targets
 # LevelDB cannot be built as a shared lib
-add_build_targets(CMAKE_ARGS -DBUILD_SHARED_LIBS=OFF)
+add_build_targets(CMAKE_ARGS -DBUILD_SHARED_LIBS=OFF
+				  DEPENDS boost)
                     
