@@ -2,7 +2,7 @@ set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
 # build only the release config
 set(BUILD_CONFIGURATION_TYPES "Release" CACHE BOOL "" FORCE)
 # build only the release config
-set(DEFAULT_SOURCE_DIR "${CMAKE_BINARY_DIR}/sources" CACHE PATH "" FORCE)
+#set(DEFAULT_SOURCE_DIR "${CMAKE_BINARY_DIR}/sources" CACHE PATH "" FORCE)
 # build only selected libraries for now
 set(BUILD_ZLIB ON CACHE BOOL "" FORCE)
 set(BUILD_HDF5 ON CACHE BOOL "" FORCE)

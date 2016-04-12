@@ -6,6 +6,6 @@ build_script:
 artifacts:
 - path: build\install
 
-cache:
-- build\sources\ZLIB -> packages\zlib\CMakeLists.txt
-- build\sources\HDF5 -> packages\hdf5\CMakeLists.txt
+#cache:
+#- build\sources\ZLIB -> packages\zlib\CMakeLists.txt
+#- build\sources\HDF5 -> packages\hdf5\CMakeLists.txt
