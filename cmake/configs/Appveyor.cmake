@@ -7,7 +7,7 @@ set(BUILD_CONFIGURATION_TYPES "Release" CACHE BOOL "" FORCE)
 # file(TO_CMAKE_PATH "$ENV{APPDATA}" _app_data)
 # set(PYTHON27_PREFIX "${_app_data}/../Local/Continuum/Anaconda2" CACHE PATH "" FORCE)
 set(PYTHON27_PREFIX "C:/Python27-x64" CACHE PATH "" FORCE)
-set(CMAKE_INSTALL_PREFIX "C:/projects/super-builder-libraries" CACHE PATH "" FORCE)
+set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install/super-builder-libraries" CACHE PATH "" FORCE)
 # build selected libraries these selected libraries only
 # to fit inside the time limits on appveyor
 if($ENV{BUILD_PART_1} STREQUAL "1")
@@ -18,6 +18,7 @@ else()
   set(BUILD_PART_2 ON CACHE BOOL "" FORCE)
 endif()
 
+# Part 1 libs
 set(BUILD_ZLIB ${BUILD_PART_1} CACHE BOOL "" FORCE)
 set(BUILD_HDF5 ${BUILD_PART_1} CACHE BOOL "" FORCE)
 # build selected opencv components
@@ -27,7 +28,8 @@ set(BUILD_SNAPPY ${BUILD_PART_1} CACHE BOOL "" FORCE)
 set(BUILD_GFLAGS ${BUILD_PART_1} CACHE BOOL "" FORCE)
 set(BUILD_GLOG ${BUILD_PART_1} CACHE BOOL "" FORCE)
 
-# build these libraries afterwards
+# Part 2 libs
+# build these libraries afterwards by changing BUILD_PART_1: 0
 set(BUILD_LMDB ${BUILD_PART_2} CACHE BOOL "" FORCE)
 set(BUILD_OPENBLAS ${BUILD_PART_2} CACHE BOOL "" FORCE)
 set(BUILD_PROTOBUF ${BUILD_PART_2} CACHE BOOL "" FORCE)
