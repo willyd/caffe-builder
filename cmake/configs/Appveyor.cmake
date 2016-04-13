@@ -7,7 +7,7 @@ set(BUILD_CONFIGURATION_TYPES "Release" CACHE BOOL "" FORCE)
 # file(TO_CMAKE_PATH "$ENV{APPDATA}" _app_data)
 # set(PYTHON27_PREFIX "${_app_data}/../Local/Continuum/Anaconda2" CACHE PATH "" FORCE)
 set(PYTHON27_PREFIX "C:/Python27-x64" CACHE PATH "" FORCE)
-set(CMAKE_INSTALL_PREFIX "install/super-builder-libraries" CACHE PATH "" FORCE)
+set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install/super-builder-libraries" CACHE PATH "" FORCE)
 # build selected libraries these selected libraries only
 # to fit inside the time limits on appveyor
 if($ENV{BUILD_PART_1} STREQUAL "1")
