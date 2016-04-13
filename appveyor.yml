@@ -8,8 +8,8 @@ build_script:
     call build_appveyor.cmd
     
 artifacts:
-- path: install\super-builder-libraries
+- path: build\install\super-builder-libraries
   name: super-builder-libraries
 
 cache:
-- install\super-builder-libraries
+- build\install\super-builder-libraries
