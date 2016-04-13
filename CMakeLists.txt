@@ -11,6 +11,7 @@ option(BUILD_SHARED_LIBS "Build static or shared libs" OFF)
 set(BUILD_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Build the given configs")
 set (CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/install" CACHE PATH "Path where to install binaries" FORCE)
 set (DEFAULT_SOURCE_DIR "" CACHE PATH "Path where the sources should be downloaded")
+set(PYTHON27_PREFIX "" CACHE PATH "The prefix of your python 2.7 installation")
 
 # copy all the Find*.cmake modules to the install directory
 file(GLOB _find_modules ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/*.cmake)
@@ -34,19 +35,14 @@ foreach(_package_name ${_packages})
 endforeach()
 
 # force dependencies to build if disable
-force_dependent_option(BUILD_GLOG BUILD_GFLAGS)
-force_dependent_option(BUILD_OPENCV BUILD_ZLIB)
-force_dependent_option(BUILD_HDF5 BUILD_ZLIB)
-force_dependent_option(BUILD_SNAPPY BUILD_ZLIB)
-force_dependent_option(BUILD_LEVELDB BUILD_BOOST)
+add_package_dependency(HDF5 ZLIB)
+add_package_dependency(glog gflags)
+add_package_dependency(opencv ZLIB)
+add_package_dependency(snappy ZLIB)
+add_package_dependency(leveldb boost)
 
 # add targets for selected packages
-foreach(_package_name ${_packages})
-    string(TOUPPER ${_package_name} _package_upper)
-    if(BUILD_${_package_upper})
-        add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/packages/${_package_name})
-    endif()
-endforeach()
+add_packages("${_packages}")
 
 # generate the InitialCache.cmake
 set(_CMAKE_PREFIX_PATH ${CMAKE_INSTALL_PREFIX})

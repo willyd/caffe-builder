@@ -24,12 +24,25 @@ macro(add_build_targets )
     cmake_parse_arguments(adt "${options}" "${oneValueArgs}"
                           "${multiValueArgs}" ${ARGN} )
                           
-                              
+                                  
     if(CMAKE_SIZEOF_VOID_P STREQUAL "8")
-        set(_address_model "address-model=64")
+        set(_address_model_value "64")
+        set(_address_model "address-model=64")               
     else()
+        set(_address_model_value "32")
         set(_address_model "address-model=32")
     endif()
+    
+    unset(_user_config)
+    if(PYTHON27_PREFIX)
+        set(ADDRESS_MODEL ${_address_model_value})
+        set(_user_config_file ${CMAKE_CURRENT_BINARY_DIR}/user-config.jam)        
+        message(STATUS "Configuring file: ${_user_config_file}")
+        configure_file(${CMAKE_SOURCE_DIR}/cmake/user-config.jam.in ${_user_config_file} @ONLY)
+        file(TO_NATIVE_PATH ${_user_config_file} _user_config_file_native)
+        set(_user_config --user-config=${_user_config_file_native})
+    endif()
+    
     if(BUILD_SHARED_LIBS)
         set(_link "link=shared")
     else()
@@ -57,7 +70,7 @@ macro(add_build_targets )
         file(TO_NATIVE_PATH ${_build_dir} _build_dir)
         set(_stagedir ${CMAKE_INSTALL_PREFIX}/boost)
         file(TO_NATIVE_PATH ${_stagedir} _stagedir)
-        set(_build_command b2 -j${_n_cpus} runtime-link=shared threading=multi ${_address_model} ${_link} ${_toolset} ${_variant} ${_components} --build-dir=${_build_dir} --stagedir=${_stagedir} stage)
+        set(_build_command b2 -j${_n_cpus} runtime-link=shared threading=multi ${_address_model} ${_link} ${_toolset} ${_variant} ${_components} ${_user_config} --build-dir=${_build_dir} --stagedir=${_stagedir} stage)
         # set(_build_command b2 runtime-link=shared threading=multi ${_address_model} ${_link} ${_toolset} ${_variant} --build-dir=${_build_dir} --prefix=${_stagedir} install)
         
         ExternalProject_Add(${_target_name}

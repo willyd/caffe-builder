@@ -3,6 +3,10 @@ set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
 set(BUILD_CONFIGURATION_TYPES "Release" CACHE BOOL "" FORCE)
 # build only the release config
 #set(DEFAULT_SOURCE_DIR "${CMAKE_BINARY_DIR}/sources" CACHE PATH "" FORCE)
+# user profile installed
+# file(TO_CMAKE_PATH "$ENV{APPDATA}" _app_data)
+# set(PYTHON27_PREFIX "${_app_data}/../Local/Continuum/Anaconda2" CACHE PATH "" FORCE)
+set(PYTHON27_PREFIX "C:/Python27-x64" CACHE PATH "" FORCE)
 # build only selected libraries for now
 set(BUILD_ZLIB ON CACHE BOOL "" FORCE)
 set(BUILD_HDF5 ON CACHE BOOL "" FORCE)

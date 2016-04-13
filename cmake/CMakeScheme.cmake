@@ -7,6 +7,7 @@ macro(add_convenience_target)
 endmacro()
 
 macro(add_build_targets )
+    message(STATUS "Adding targets for: ${PROJECT_NAME}")
     set(options)
     set(oneValueArgs
 	)
@@ -30,9 +31,16 @@ macro(add_build_targets )
         if(${CMAKE_GENERATOR} MATCHES "Ninja")
             set(_build_type -DCMAKE_BUILD_TYPE=${_config})
         endif()
+        
         set(_target_name ${PROJECT_NAME}_${_config})
+        # any dependencies on other libs                
+        unset(_deps)
+        foreach(_dep ${adt_DEPENDS})            
+            list(APPEND _deps ${_dep}_${_config})
+        endforeach()        
+        
         ExternalProject_Add(${_target_name}
-                            DEPENDS ${PROJECT_NAME}_download
+                            DEPENDS ${PROJECT_NAME}_download ${_deps}
                             DOWNLOAD_COMMAND ""
                             SOURCE_DIR ${SOURCE_DIR}
                             CMAKE_ARGS
@@ -44,11 +52,7 @@ macro(add_build_targets )
                             -C ${CMAKE_INSTALL_PREFIX}/InitialCache.cmake
                             )
                             
-        ExternalProject_Add_StepTargets(${_target_name} install)                            
-        # any dependencies on other libs
-        foreach(_dep ${adt_DEPENDS})
-            add_dependencies(${_target_name} ${_dep}_${_config})
-        endforeach()
+        ExternalProject_Add_StepTargets(${_target_name} install)                                    
         # add dependencies to avoid failing concurrent installs of the
         # files in the same location                            
         foreach(_target ${_defined_targets})
