@@ -10,13 +10,15 @@ set(PYTHON27_PREFIX "C:/Python27-x64" CACHE PATH "" FORCE)
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install/super-builder-libraries" CACHE PATH "" FORCE)
 # build selected libraries these selected libraries only
 # to fit inside the time limits on appveyor
-if($ENV{BUILD_PART_1} STREQUAL "1")
-  set(BUILD_PART_1 ON CACHE BOOL "" FORCE)
-  set(BUILD_PART_2 OFF CACHE BOOL "" FORCE)
-else()
-  set(BUILD_PART_1 OFF CACHE BOOL "" FORCE)
-  set(BUILD_PART_2 ON CACHE BOOL "" FORCE)
-endif()
+# if($ENV{BUILD_PART_1} STREQUAL "1")
+#   set(BUILD_PART_1 ON CACHE BOOL "" FORCE)
+#   set(BUILD_PART_2 OFF CACHE BOOL "" FORCE)
+# else()
+#   set(BUILD_PART_1 OFF CACHE BOOL "" FORCE)
+#   set(BUILD_PART_2 ON CACHE BOOL "" FORCE)
+# endif()
+set(BUILD_PART_1 ON CACHE BOOL "" FORCE)
+set(BUILD_PART_2 ON CACHE BOOL "" FORCE)
 
 # Part 1 libs
 set(BUILD_ZLIB ${BUILD_PART_1} CACHE BOOL "" FORCE)
