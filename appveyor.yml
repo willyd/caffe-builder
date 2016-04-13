@@ -13,5 +13,3 @@ artifacts:
 
 cache:
 - C:\projects\super-builder-libraries
-#- build\sources\ZLIB -> packages\zlib\CMakeLists.txt
-#- build\sources\HDF5 -> packages\hdf5\CMakeLists.txt
