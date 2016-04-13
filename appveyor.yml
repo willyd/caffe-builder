@@ -1,13 +1,17 @@
 version: 1.0.{build}
+
+environment:
+    BUILD_PART_1: 1
+
 build_script:
 - cmd: >-
     call build_appveyor.cmd
     
 artifacts:
-- path: C:/projects/super-builder-libraries
+- path: C:\projects\super-builder-libraries
   name: super-builder-libraries
 
 cache:
-- "C:/projects/super-builder-libraries"
+- "C:\projects\super-builder-libraries"
 #- build\sources\ZLIB -> packages\zlib\CMakeLists.txt
 #- build\sources\HDF5 -> packages\hdf5\CMakeLists.txt
