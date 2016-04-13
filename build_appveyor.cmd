@@ -12,5 +12,5 @@ if NOT EXIST .\build (mkdir .\build)
 cd .\build
 
 :: Configure with CMake and build
-cmake -GNinja -C ..\cmake\configs\Appveyor.cmake ..\
+cmake -GNinja -C ..\cmake\configs\AppveyorPart1.cmake ..\
 ninja
