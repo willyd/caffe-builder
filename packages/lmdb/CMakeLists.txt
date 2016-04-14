@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(LMDB VERSION 1.2.8)
+project(LMDB VERSION 0.9.70)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 include(GitRepoDownloadScheme)
@@ -10,7 +10,7 @@ include(CMakeScheme)
 
 # a download target
 add_download_target(URL https://github.com/willyd/lmdb.git
-		            TAG cmake					
+		            TAG cmake2					
 					)
 
 ExternalProject_Get_Property("${PROJECT_NAME}_download" SOURCE_DIR)
