@@ -19,8 +19,17 @@ macro(add_download_target)
         set(_source_dir_opt SOURCE_DIR "${_source_dir}")
     endif()
     
-    if(EXISTS "${_source_dir}")
-        message("Using previously downloaded sources")
+    unset(_use_already_downloaded_sources)
+    if(EXISTS ${_source_dir})
+        file(GLOB_RECURSE _source_dir_content LIST_DIRECTORIES FALSE ${_source_dir}/*.*)
+        list(LENGTH _source_dir_content _n_files)
+        if(_n_files GREATER 0)
+            set(_use_already_downloaded_sources TRUE)
+        endif()
+    endif()
+    
+    if(_use_already_downloaded_sources)
+        message(STATUS "Using already downloaded sources for: ${PROJECT_NAME}")
         ExternalProject_Add(${PROJECT_NAME}_download                        
                         DOWNLOAD_COMMAND ""
                         ${_source_dir_opt}

@@ -40,4 +40,5 @@ set(BUILD_BOOST ${BUILD_PART_2} CACHE BOOL "" FORCE)
 set(BOOST_COMPONENTS atomic chrono date_time filesystem python system thread CACHE STRING "" FORCE)
 set(BUILD_LEVELDB ${BUILD_PART_2} CACHE BOOL "" FORCE)
 
+set(BUILD_PYLEVELDB OFF CACHE BOOL "" FORCE)
 

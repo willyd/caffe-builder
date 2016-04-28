@@ -1,6 +1,6 @@
 set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
 # build only the release config
-set(BUILD_CONFIGURATION_TYPES "Release" CACHE BOOL "" FORCE)
+set(BUILD_CONFIGURATION_TYPES "Debug;Release" CACHE BOOL "" FORCE)
 # build only the release config
 set(DEFAULT_SOURCE_DIR "${CMAKE_BINARY_DIR}/sources" CACHE PATH "" FORCE)
 # user profile installed
@@ -18,7 +18,7 @@ set(DEFAULT_SOURCE_DIR "${CMAKE_BINARY_DIR}/sources" CACHE PATH "" FORCE)
 #   set(BUILD_PART_2 ON CACHE BOOL "" FORCE)
 # endif()
 set(BUILD_PART_1 ON CACHE BOOL "" FORCE)
-set(BUILD_PART_2 ON CACHE BOOL "" FORCE
+set(BUILD_PART_2 ON CACHE BOOL "" FORCE)
 
 # Part 1 libs
 set(BUILD_ZLIB ${BUILD_PART_1} CACHE BOOL "" FORCE)

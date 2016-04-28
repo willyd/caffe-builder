@@ -6,6 +6,18 @@ project (super-builder)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
+if(CMAKE_GENERATOR MATCHES "Ninja" AND MSVC)
+    set(_test_cl_file "${CMAKE_CURRENT_BINARY_DIR}/test_cl_in_path.cpp")
+    if(NOT EXISTS "${_test_cl_file}")
+        file(WRITE "${_test_cl_file}" "int main(int argc, char* argv[]) {return 0;}")
+    endif()
+    message(STATUS "Using Ninja")
+    try_compile(_cl_in_path ${CMAKE_CURRENT_BINARY_DIR} "${_test_cl_file}")
+    if(NOT _cl_in_path)
+        message(FATAL_ERROR "Failed to compile a simple source file. Please call the appropriate vcvarsall.bat file.")        
+    endif()
+endif()
+
 include(ExternalProject)
 include(ForceDependentOption)
 
@@ -33,15 +45,22 @@ endforeach()
 # define an option to build the package or not
 foreach(_package_name ${_packages})   
     string(TOUPPER ${_package_name} _package_upper)
-    option(BUILD_${_package_upper} "Build ${_package_name}?" ON)    
+    option(BUILD_${_package_upper} "Build ${_package_name}?" ON)
+    set(_package_spec ${CMAKE_CURRENT_SOURCE_DIR}/packages/${_package_name}/spec.cmake)
+    if(EXISTS ${_package_spec})
+        include(${_package_spec})
+    endif()
 endforeach()
 
+# TODO change this to spec.cmake
 # force dependencies to build if disable
 add_package_dependency(HDF5 ZLIB)
 add_package_dependency(glog gflags)
 add_package_dependency(opencv ZLIB)
 add_package_dependency(snappy ZLIB)
 add_package_dependency(leveldb boost)
+
+
 
 # add targets for selected packages
 add_packages("${_packages}")

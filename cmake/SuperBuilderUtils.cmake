@@ -1,0 +1,6 @@
+option(SUPER_BUILDER_DEBUG "Enable debugging of super builder cmake scripts" ON)
+function(debug_message)
+    if(SUPER_BUILDER_DEBUG)
+        message(STATUS "(DEBUG) ${ARGN}")
+    endif()
+endfunction()
