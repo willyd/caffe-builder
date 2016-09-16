@@ -1,0 +1,1 @@
+cmake -DFILE=%1 -P %~dp0\hash.cmake

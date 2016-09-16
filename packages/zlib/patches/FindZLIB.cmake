@@ -63,7 +63,7 @@ message(STATUS "Using custom FindZLIB module")
 
 set(_ZLIB_SEARCHES)
 
-set(ZLIB_ROOT ${CMAKE_CURRENT_LIST_DIR}/../zlib)
+set(ZLIB_ROOT @ZLIB_ROOT@)
 
 # Search ZLIB_ROOT first if it is set.
 if(ZLIB_ROOT)
@@ -71,7 +71,7 @@ if(ZLIB_ROOT)
   list(APPEND _ZLIB_SEARCHES _ZLIB_SEARCH_ROOT)
 endif()
 
-set(ZLIB_SHARED @BUILD_SHARED_LIBS@)
+set(ZLIB_SHARED @ZLIB_BUILD_SHARED_LIBS@)
 if(ZLIB_SHARED)
   set(ZLIB_NAMES zlib)
 else()
