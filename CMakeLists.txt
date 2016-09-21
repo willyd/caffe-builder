@@ -6,6 +6,7 @@ project (super-builder)
 
 set(CB_DOWNLOAD_DIR "${CMAKE_CURRENT_BINARY_DIR}/download" CACHE STRING "Download directory")
 set(CB_BUILD_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Build the given configs")
+set(CB_BUILD_CONDA_PKG OFF CACHE BOOL "Building a conda package")
 option(BUILD_SHARED_LIBS "Build static or shared libs" OFF)
 
 # install all Find<package>.cmake module to install_prefix/cmake

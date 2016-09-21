@@ -1,0 +1,39 @@
+{% set version = "1.2.8" %}
+{% import '../config.yaml' as cfg %}
+
+# alternate version of zlib
+
+package:
+    name: alt-zlib
+    version: {{ version }}{{ cfg.msvc_version_suffix }}
+
+source:
+    path: ../../
+    
+build:
+    number: 1
+    features:
+        - {{ cfg.msvc_feature }} # [win]
+    msvc_compiler: {{ cfg.msvc_compiler }}
+
+requirements:
+    build:
+        - vc {{ cfg.msvc_feature_package_version }}* # [win]
+        - cmake-helper # [win]
+        - cmake  # [win]
+        - ninja # [win]
+    run:
+        - vc {{ cfg.msvc_feature_package_version }}* # [win]
+        - cmake-helper # [win]
+
+
+about:
+    home: http://zlib.net/
+    license: zlib (http://zlib.net/zlib_license.html)
+    summary: Massively spiffy yet delicately unobtrusive compression library
+    license_family: Other
+    # license_file: license.txt
+
+extra:
+    recipe-maintainers:
+        - willyd
