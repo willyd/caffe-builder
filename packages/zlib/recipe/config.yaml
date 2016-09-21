@@ -1,0 +1,9 @@
+{% set msvc_version = os.environ.get('CONDA_MSVC_VERSION', '12') %}
+{% set msvc_compiler = msvc_version + '.0' %}
+{% set msvc_feature =  'vc' + msvc_version %}
+{% set msvc_version_suffix =  '.' + msvc_feature %}
+{% set msvc_feature_package_version =  msvc_version %}
+{% set cuda_version = os.environ.get('CONDA_CUDA_VERSION', '') %}
+{% set cuda_feature = 'cuda' + cuda_version if cuda_version else ''%}
+{% set cuda_version_suffix =  '.' + cuda_feature if cuda_feature else '' %}
+{% set cuda_feature_package_version =  '.'.join(cuda_version) if cuda_version else '' %}

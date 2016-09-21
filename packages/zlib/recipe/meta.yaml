@@ -1,5 +1,5 @@
 {% set version = "1.2.8" %}
-{% import '../config.yaml' as cfg %}
+{% import 'config.yaml' as cfg %}
 
 # alternate version of zlib
 
@@ -8,8 +8,8 @@ package:
     version: {{ version }}{{ cfg.msvc_version_suffix }}
 
 source:
-    path: ../../
-    
+    path: ../../../
+
 build:
     number: 1
     features:

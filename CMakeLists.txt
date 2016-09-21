@@ -10,9 +10,9 @@ set(CB_BUILD_CONDA_PKG OFF CACHE BOOL "Building a conda package")
 option(BUILD_SHARED_LIBS "Build static or shared libs" OFF)
 
 # install all Find<package>.cmake module to install_prefix/cmake
-set(CB_CMAKE_MODULE_PATH ${CMAKE_INSTALL_PREFIX}/cmake)
+set(CB_CMAKE_MODULE_PATH ${CMAKE_INSTALL_PREFIX}/cmake/modules)
 # install module can reference the installation path using this value
-set(CB_MODULE_ROOT \${CMAKE_CURRENT_LIST_DIR}/../)
+set(CB_MODULE_ROOT \${CMAKE_CURRENT_LIST_DIR}/../../)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -26,7 +26,7 @@ add_subdirectory(packages/zlib)
 #     message(STATUS "Using Ninja")
 #     try_compile(_cl_in_path ${CMAKE_CURRENT_BINARY_DIR} "${_test_cl_file}")
 #     if(NOT _cl_in_path)
-#         message(FATAL_ERROR "Failed to compile a simple source file. Please call the appropriate vcvarsall.bat file.")        
+#         message(FATAL_ERROR "Failed to compile a simple source file. Please call the appropriate vcvarsall.bat file.")
 #     endif()
 # endif()
 
@@ -42,7 +42,7 @@ add_subdirectory(packages/zlib)
 # # copy all the Find*.cmake modules to the install directory
 # file(GLOB _find_modules ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/*.cmake)
 # foreach(_find_module ${_find_modules})
-#     get_filename_component(_file_name ${_find_module} NAME)    
+#     get_filename_component(_file_name ${_find_module} NAME)
 #     # use configure_file
 #     configure_file(${_find_module} ${CMAKE_INSTALL_PREFIX}/cmake/${_file_name} @ONLY)
 # endforeach()
@@ -55,7 +55,7 @@ add_subdirectory(packages/zlib)
 # endforeach()
 
 # # define an option to build the package or not
-# foreach(_package_name ${_packages})   
+# foreach(_package_name ${_packages})
 #     string(TOUPPER ${_package_name} _package_upper)
 #     option(BUILD_${_package_upper} "Build ${_package_name}?" ON)
 #     set(_package_spec ${CMAKE_CURRENT_SOURCE_DIR}/packages/${_package_name}/spec.cmake)
