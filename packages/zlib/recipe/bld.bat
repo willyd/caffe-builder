@@ -17,7 +17,7 @@ cmake -GNinja ^
 if errorlevel 1 exit 1
 
 :: Build.
-cmake --build . --target install --config %%B
+cmake --build . --config %%B
 if errorlevel 1 exit 1
 
 popd
