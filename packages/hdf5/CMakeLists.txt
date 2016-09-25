@@ -54,4 +54,8 @@ if(BUILD_${PROJECT_NAME_UPPER})
     add_custom_target(${PROJECT_NAME})
     add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_targets})
 
+    # TODO add target to replace path to zlib
+
+    # Consuming projects need to use hdf5-shared, etc as libraries to link to
+
 endif()
