@@ -30,7 +30,7 @@ def replace_absolute_paths(filepath, outfilepath=None):
     # any path in the input file
     matches = regex.findall(content)
     # the first group of the match is the full file path
-    print(matches)
+    matches = [m[0] for m in matches]
     for m in matches:
         # make sure that the match and prefix are on the same drive
         if m[0].upper() == basepath[0].upper():
@@ -41,6 +41,7 @@ def replace_absolute_paths(filepath, outfilepath=None):
             # replace the prefix with a CMake variable
             path = path.replace(prefix, '${CMAKE_CURRENT_LIST_DIR}')
             content = content.replace(m, path)
+
     if outfilepath is None:
         outfilepath = filepath
 

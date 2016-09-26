@@ -47,15 +47,23 @@ if(BUILD_${PROJECT_NAME_UPPER})
                     -DCMAKE_DEBUG_POSTFIX=d
                     ${${PROJECT_NAME_UPPER}_CMAKE_ARGS}
             BUILD_COMMAND ${CMAKE_COMMAND} --build . --target install --config ${_config}
+            INSTALL_COMMAND ${CMAKE_COMMAND} --build . --target install --config ${_config}
         )
+        ExternalProject_Add_Step(${PROJECT_NAME}_${_config_lower} relocate
+        COMMAND ${PYTHON_EXECUTABLE}
+                ${CMAKE_CURRENT_SOURCE_DIR}/../../replace_absolute_paths.py
+                ${CMAKE_INSTALL_PREFIX}/cmake/hdf5-targets.cmake
+        DEPENDEES build install
+        COMMENT "Running relocation script"
+        )
+
+        ExternalProject_Add_StepTargets(${PROJECT_NAME}_${_config_lower} build install relocate)
+
         list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_${_config_lower})
     endforeach()
 
     add_custom_target(${PROJECT_NAME})
     add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_targets})
 
-    # TODO add target to replace path to zlib
-
     # Consuming projects need to use hdf5-shared, etc as libraries to link to
-
 endif()

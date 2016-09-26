@@ -17,6 +17,11 @@ set(CB_MODULE_ROOT \${CMAKE_CURRENT_LIST_DIR}/../../)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 
+find_package(PythonInterp)
+if(NOT PYTHON_EXECUTABLE)
+    message(WARNING "Cannot make packages relocatable since python was not found. Set PYTHON_EXECUTABLE to your python path.")
+endif()
+
 add_subdirectory(packages/zlib)
 add_subdirectory(packages/gflags)
 add_subdirectory(packages/glog)
