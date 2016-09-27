@@ -16,6 +16,8 @@ set(CB_MODULE_ROOT \${CMAKE_CURRENT_LIST_DIR}/../../)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
+include(ProcessorCount)
+ProcessorCount(NUMBER_OF_PROCESSORS)
 
 find_package(PythonInterp)
 if(NOT PYTHON_EXECUTABLE)
@@ -25,7 +27,8 @@ endif()
 add_subdirectory(packages/zlib)
 add_subdirectory(packages/gflags)
 add_subdirectory(packages/glog)
-add_subdirectory(packages/hdf5 )
+add_subdirectory(packages/hdf5)
+add_subdirectory(packages/boost)
 # if(CMAKE_GENERATOR MATCHES "Ninja" AND MSVC)
 #     set(_test_cl_file "${CMAKE_CURRENT_BINARY_DIR}/test_cl_in_path.cpp")
 #     if(NOT EXISTS "${_test_cl_file}")
