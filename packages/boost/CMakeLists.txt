@@ -72,11 +72,11 @@ if(BUILD_${PROJECT_NAME_UPPER})
                            ${_components}
                            ${_user_config}
                            --build-dir=${_build_dir}
-                           --stagedir=${_stagedir}
+                           --prefix=${_stagedir}
                            -s ZLIB_BINARY=${_zlib_name}
                            -s ZLIB_INCLUDE=${ZLIB_INCLUDE_DIR}
                            -s ZLIB_LIBPATH=${_zlib_path}
-                           stage
+                           install
         )
 
         ExternalProject_Add(
@@ -93,18 +93,7 @@ if(BUILD_${PROJECT_NAME_UPPER})
         list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_${_config_lower})
     endforeach()
 
-    include(RobocopyTarget)
-    # use robocopy to install boost headers
-    add_robocopy_target(NAME ${PROJECT_NAME}_install_include
-                        SOURCE ${SOURCE_DIR}/${PROJECT_NAME}
-                        DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}-${PROJECT_VERSION_MAJOR}_${PROJECT_VERSION_MINOR}/${PROJECT_NAME}
-                        PATTERNS *.*
-                        OPTIONS /S
-                        DEPENDS ${${PROJECT_NAME}_targets}
-                        ALL
-                        )
-
     add_custom_target(${PROJECT_NAME})
-    add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_targets} ${${PROJECT_NAME}_install_include})
+    add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_targets} ) #${${PROJECT_NAME}_install_include})
     # Consuming projects need to use hdf5-shared, etc as libraries to link to
 endif()
