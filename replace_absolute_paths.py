@@ -4,7 +4,7 @@ import os
 import re
 
 # match any path of the form DRIVE_LETTER:/path/gh
-pattern = r'([a-zA-Z]:/(((?![<>:"/|?*]).)+((?<![ .])/)?)*)'
+pattern = r'([a-zA-Z]:/(((?![<>:"/;|?*]).)+((?<![ .])/)?)*)'
 regex = re.compile(pattern)
 
 class FileNotFoundError(Exception):
