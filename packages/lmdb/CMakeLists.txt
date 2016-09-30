@@ -9,6 +9,14 @@ set(${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared librari
 
 if(BUILD_${PROJECT_NAME_UPPER})
 
+	set(${PROJECT_NAME_UPPER}_CONFIG
+"
+# ${PROJECT_NAME_UPPER} config
+set(${PROJECT_NAME_UPPER}_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake CACHE PATH \"\")
+set(${PROJECT_NAME}_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake  CACHE PATH \"\")
+"
+    PARENT_SCOPE)
+
     include(ExternalProject)
     ExternalProject_Add(
         ${PROJECT_NAME}_download

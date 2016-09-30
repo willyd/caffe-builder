@@ -60,6 +60,15 @@ endif()
 
 if(BUILD_${PROJECT_NAME_UPPER})
 
+    set(${PROJECT_NAME_UPPER}_CONFIG
+"
+# ${PROJECT_NAME_UPPER} config
+set(${PROJECT_NAME_UPPER}_DIR \${CMAKE_CURRENT_LIST_DIR}  CACHE PATH \"\")
+set(${PROJECT_NAME}_DIR \${CMAKE_CURRENT_LIST_DIR}  CACHE PATH \"\")
+set(OpenCV_DIR \${CMAKE_CURRENT_LIST_DIR}  CACHE PATH \"\")
+"
+    PARENT_SCOPE)
+
     include(ExternalProject)
     set(_ext_proj_ffmpeg )
     if(${PROJECT_NAME_UPPER}_CLONE_FFMPEG)

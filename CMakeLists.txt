@@ -33,6 +33,8 @@ add_subdirectory(packages/leveldb)
 add_subdirectory(packages/lmdb)
 add_subdirectory(packages/opencv)
 add_subdirectory(packages/protobuf)
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/caffe-builder-config.cmake.in ${CMAKE_INSTALL_PREFIX}/caffe-builder-config.cmake @ONLY)
 # if(CMAKE_GENERATOR MATCHES "Ninja" AND MSVC)
 #     set(_test_cl_file "${CMAKE_CURRENT_BINARY_DIR}/test_cl_in_path.cpp")
 #     if(NOT EXISTS "${_test_cl_file}")
