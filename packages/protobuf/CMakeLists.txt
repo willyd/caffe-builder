@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 project(protobuf VERSION 3.1.0)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
-option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" OFF)
+option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${CB_BUILD_ALL})
 option(${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS "Build shared libraries for ${PROJECT_NAME}" ${BUILD_SHARED_LIBS})
 if(${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS)
     message(WARNING "Building protobuf as a shared library is not recommended")

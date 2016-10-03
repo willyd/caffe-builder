@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 project(lmdb VERSION 0.9.70)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
-option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" OFF)
+option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${CB_BUILD_ALL})
 # lmdb cannot be built as a shared library on Windows
 set(${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libraries for ${PROJECT_NAME}" FORCE)
 

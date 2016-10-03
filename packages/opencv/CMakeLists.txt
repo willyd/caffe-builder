@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 project(opencv VERSION 3.1.0)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
-option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" OFF)
+option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${CB_BUILD_ALL})
 option(${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS "Build shared libraries for ${PROJECT_NAME}" ${BUILD_SHARED_LIBS})
 option(${PROJECT_NAME_UPPER}_WITH_CUDA "Build ${PROJECT_NAME} with CUDA" OFF)
 option(${PROJECT_NAME_UPPER}_CLONE_FFMPEG "Clone ffmpeg windows dependency instead of downloading it" OFF)
@@ -131,16 +131,18 @@ set(OpenCV_STATIC ${OpenCV_STATIC} CACHE BOOL \"\")
             BUILD_COMMAND ${CMAKE_COMMAND} --build . --target install --config ${_config}
             INSTALL_COMMAND ${CMAKE_COMMAND} --build . --target install --config ${_config}
         )
+        if(PYTHON_EXECUTABLE)
+            ExternalProject_Add_Step(${PROJECT_NAME}_${_config_lower} relocate
+            COMMAND ${PYTHON_EXECUTABLE}
+                    ${CMAKE_CURRENT_SOURCE_DIR}/../../replace_absolute_paths.py
+                    ${CMAKE_INSTALL_PREFIX}/${OpenCV_ARCH}/${OpenCV_RUNTIME}/${OpenCV_LIB_PREFIX}/OpenCVModules-${_config_lower}.cmake
+            DEPENDEES build install
+            COMMENT "Running relocation script"
+            )
+            ExternalProject_Add_StepTargets(${PROJECT_NAME}_${_config_lower} relocate)
+        endif()
 
-        ExternalProject_Add_Step(${PROJECT_NAME}_${_config_lower} relocate
-        COMMAND ${PYTHON_EXECUTABLE}
-                ${CMAKE_CURRENT_SOURCE_DIR}/../../replace_absolute_paths.py
-                ${CMAKE_INSTALL_PREFIX}/${OpenCV_ARCH}/${OpenCV_RUNTIME}/${OpenCV_LIB_PREFIX}/OpenCVModules-${_config_lower}.cmake
-        DEPENDEES build install
-        COMMENT "Running relocation script"
-        )
-
-        ExternalProject_Add_StepTargets(${PROJECT_NAME}_${_config_lower} build install relocate)
+        ExternalProject_Add_StepTargets(${PROJECT_NAME}_${_config_lower} build install)
 
         list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_${_config_lower})
     endforeach()

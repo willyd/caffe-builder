@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 project(zlib VERSION 1.2.8)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
-option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" OFF)
+option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${CB_BUILD_ALL})
 option(${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS "Build shared libraries for ${PROJECT_NAME}" ${BUILD_SHARED_LIBS})
 set(${PROJECT_NAME_UPPER}_LIB_PREFIX "" CACHE STRING "Library to prefix the binaries with to avoid name conflicts on windows")
 

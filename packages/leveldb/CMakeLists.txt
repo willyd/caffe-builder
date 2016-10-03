@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 project(leveldb VERSION 1.1.18)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
-option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" OFF)
+option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${CB_BUILD_ALL})
 # level db cannot be built as a shared library on Windows
 set(${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libraries for ${PROJECT_NAME}" FORCE)
 
@@ -61,15 +61,18 @@ set(LevelDB_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake  CACHE PATH \"\")
             BUILD_COMMAND ${CMAKE_COMMAND} --build . --target install --config ${_config}
             INSTALL_COMMAND ${CMAKE_COMMAND} --build . --target install --config ${_config}
         )
-        ExternalProject_Add_Step(${PROJECT_NAME}_${_config_lower} relocate
-        COMMAND ${PYTHON_EXECUTABLE}
-                ${CMAKE_CURRENT_SOURCE_DIR}/../../replace_absolute_paths.py
-                ${CMAKE_INSTALL_PREFIX}/cmake/leveldb-targets-${_config_lower}.cmake
-        DEPENDEES build install
-        COMMENT "Running relocation script"
-        )
+        if(PYTHON_EXECUTABLE)
+            ExternalProject_Add_Step(${PROJECT_NAME}_${_config_lower} relocate
+            COMMAND ${PYTHON_EXECUTABLE}
+                    ${CMAKE_CURRENT_SOURCE_DIR}/../../replace_absolute_paths.py
+                    ${CMAKE_INSTALL_PREFIX}/cmake/leveldb-targets-${_config_lower}.cmake
+            DEPENDEES build install
+            COMMENT "Running relocation script"
+            )
+            ExternalProject_Add_StepTargets(${PROJECT_NAME}_${_config_lower} relocate)
+        endif()
 
-        ExternalProject_Add_StepTargets(${PROJECT_NAME}_${_config_lower} build install relocate)
+        ExternalProject_Add_StepTargets(${PROJECT_NAME}_${_config_lower} build install)
 
         list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_${_config_lower})
     endforeach()

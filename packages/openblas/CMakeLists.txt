@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 project(openblas VERSION 0.2.14)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
-option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" OFF)
+option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${CB_BUILD_ALL})
 # OpenBLAS needs to be built as a shared library on Windows
 set(${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries for ${PROJECT_NAME}" FORCE)
 set(${PROJECT_NAME_UPPER}_URL_BASE "http://downloads.sourceforge.net/project/openblas/v${PROJECT_VERSION}" CACHE STRING "Set the base download url for ${PROJECT_NAME}")
