@@ -6,6 +6,7 @@ string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${CB_BUILD_ALL})
 # level db cannot be built as a shared library on Windows
 set(${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libraries for ${PROJECT_NAME}" FORCE)
+option(${PROJECT_NAME_UPPER}_WITH_PYTHON "Build ${PROJECT_NAME} with python support" OFF)
 
 set(${PROJECT_NAME_UPPER}_CMAKE_ARGS
     -DBOOST_ROOT:PATH=${BOOST_ROOT}
@@ -76,6 +77,22 @@ set(LevelDB_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake  CACHE PATH \"\")
 
         list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_${_config_lower})
     endforeach()
+
+    if(${PROJECT_NAME_UPPER}_WITH_PYTHON AND PYTHON_EXECUTABLE)
+        ExternalProject_Get_Property("${PROJECT_NAME}_download" SOURCE_DIR)
+        ExternalProject_Add(
+        ${PROJECT_NAME}_python
+        SOURCE_DIR ${SOURCE_DIR}
+        DOWNLOAD_COMMAND ""
+        DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
+        PATCH_COMMAND ""
+        CONFIGURE_COMMAND ""
+        BUILD_COMMAND ""
+        INSTALL_COMMAND ""
+        BUILD_IN_SOURCE 1
+        )
+        list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_python)
+    endif()
 
     add_custom_target(${PROJECT_NAME})
     add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_targets})

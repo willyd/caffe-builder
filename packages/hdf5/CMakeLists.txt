@@ -24,9 +24,9 @@ if(BUILD_${PROJECT_NAME_UPPER})
 	set(${PROJECT_NAME_UPPER}_CONFIG
 "
 # ${PROJECT_NAME_UPPER} config
-set(${PROJECT_NAME_UPPER}_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake)
-set(${PROJECT_NAME}_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake)
-set(HDF5_ROOT_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake)
+set(${PROJECT_NAME_UPPER}_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake CACHE PATH \"\")
+set(${PROJECT_NAME}_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake CACHE PATH \"\")
+set(HDF5_ROOT_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake CACHE PATH \"\")
 "
     PARENT_SCOPE)
 
@@ -56,7 +56,7 @@ set(HDF5_ROOT_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake)
                     -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
                     -DCMAKE_PREFIX_PATH=${CMAKE_INSTALL_PREFIX}
                     -DCMAKE_MODULE_PATH=${CB_CMAKE_MODULE_PATH}
-                    -DCMAKE_DEBUG_POSTFIX=d
+                    #-DCMAKE_DEBUG_POSTFIX=d
                     ${${PROJECT_NAME_UPPER}_CMAKE_ARGS}
             BUILD_COMMAND ${CMAKE_COMMAND} --build . --target install --config ${_config}
             INSTALL_COMMAND ${CMAKE_COMMAND} --build . --target install --config ${_config}
