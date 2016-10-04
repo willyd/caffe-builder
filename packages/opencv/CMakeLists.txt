@@ -99,7 +99,7 @@ set(OpenCV_STATIC ${OpenCV_STATIC} CACHE BOOL \"\")
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different
                       "${CMAKE_CURRENT_SOURCE_DIR}/patches/CMakeListsPatch.txt"
-                      "${SOURCE_DIR}/CMakeLists.txt"
+                      "CMakeLists.txt"
         CONFIGURE_COMMAND ""
         BUILD_COMMAND ""
         INSTALL_COMMAND ""

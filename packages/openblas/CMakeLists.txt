@@ -29,7 +29,9 @@ set(OpenBLAS_LIB \${CMAKE_CURRENT_LIST_DIR}/lib/libopenblas.dll.a CACHE FILEPATH
     if(CMAKE_SIZEOF_VOID_P STREQUAL "8")
         # 64 bit
         set(_openblas_url ${${PROJECT_NAME_UPPER}_URL_BASE}/OpenBLAS-v0.2.14-Win64-int32.zip)
+        set(_openblas_hash URL_MD5 bb59507959975d8d55f3e7eb0ecd5ea3)
         set(_mingw_url ${${PROJECT_NAME_UPPER}_URL_BASE}/mingw64_dll.zip)
+        set(_mingw_hash URL_MD5 e619f1f936638240472397e0f7970e66)
     else()
         # 32 bit
         set(_openblas_url ${${PROJECT_NAME_UPPER}_URL_BASE}/OpenBLAS-v0.2.14-Win32.zip)
@@ -39,6 +41,7 @@ set(OpenBLAS_LIB \${CMAKE_CURRENT_LIST_DIR}/lib/libopenblas.dll.a CACHE FILEPATH
     ExternalProject_Add(
         ${PROJECT_NAME}_download
         URL ${_openblas_url}
+        ${_openblas_hash}
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         CONFIGURE_COMMAND ""
         BUILD_COMMAND ""
@@ -54,6 +57,7 @@ set(OpenBLAS_LIB \${CMAKE_CURRENT_LIST_DIR}/lib/libopenblas.dll.a CACHE FILEPATH
     ExternalProject_Add(
         ${PROJECT_NAME}_download_mingw
         URL ${_mingw_url}
+        ${_mingw_hash}
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         CONFIGURE_COMMAND ""
         BUILD_COMMAND ""

@@ -23,7 +23,7 @@ set(Glog_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake  CACHE PATH \"\")
 	ExternalProject_Add(
 		${PROJECT_NAME}_download
 		GIT_REPOSITORY  https://github.com/willyd/glog.git
-		GIT_TAG relocatable
+		GIT_TAG 45901a359f3912ad0fc3b40e7e8cf2855252ba31
 		DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
 		CONFIGURE_COMMAND ""
 		BUILD_COMMAND ""
