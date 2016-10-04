@@ -79,17 +79,24 @@ set(LevelDB_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake  CACHE PATH \"\")
     endforeach()
 
     if(${PROJECT_NAME_UPPER}_WITH_PYTHON AND PYTHON_EXECUTABLE)
-        ExternalProject_Get_Property("${PROJECT_NAME}_download" SOURCE_DIR)
+        set(_config Release)
         ExternalProject_Add(
         ${PROJECT_NAME}_python
-        SOURCE_DIR ${SOURCE_DIR}
-        DOWNLOAD_COMMAND ""
+        DEPENDS ${${PROJECT_NAME}_targets}
+        GIT_REPOSITORY "https://github.com/willyd/py-leveldb-windows.git"
+        GIT_TAG d60aa685b136a7de43a0af380155840a62c36aa3
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
-        PATCH_COMMAND ""
-        CONFIGURE_COMMAND ""
-        BUILD_COMMAND ""
-        INSTALL_COMMAND ""
-        BUILD_IN_SOURCE 1
+        CMAKE_ARGS -DCMAKE_BUILD_TYPE=${_config}
+                    -DBUILD_SHARED_LIBS=${${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS}
+                    -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+                    -DCMAKE_PREFIX_PATH=${CMAKE_INSTALL_PREFIX}
+                    -DCMAKE_MODULE_PATH=${CB_CMAKE_MODULE_PATH}
+                    -Dleveldb_DIR=${CMAKE_INSTALL_PREFIX}/cmake
+                    -DPYLEVELDB_COPY_DEPEDENCIES:BOOL=OFF
+        BUILD_COMMAND ${CMAKE_COMMAND} --build . --target install --config ${_config}
+        INSTALL_COMMAND ${CMAKE_COMMAND} --build . --target install --config ${_config}
+        # TODO add other command to move the installed file to site-packages
+        #COMMAND
         )
         list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_python)
     endif()
