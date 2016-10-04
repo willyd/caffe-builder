@@ -61,21 +61,22 @@ set(HDF5_ROOT_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake CACHE PATH \"\")
             BUILD_COMMAND ${CMAKE_COMMAND} --build . --target install --config ${_config}
             INSTALL_COMMAND ${CMAKE_COMMAND} --build . --target install --config ${_config}
         )
-        if(PYTHON_EXECUTABLE)
-            ExternalProject_Add_Step(${PROJECT_NAME}_${_config_lower} relocate
-            COMMAND ${PYTHON_EXECUTABLE}
-                    ${CMAKE_CURRENT_SOURCE_DIR}/../../replace_absolute_paths.py
-                    ${CMAKE_INSTALL_PREFIX}/cmake/hdf5-targets.cmake
-            DEPENDEES build install
-            COMMENT "Running relocation script"
-            )
-            ExternalProject_Add_StepTargets(${PROJECT_NAME}_${_config_lower} relocate)
-        endif()
-
         ExternalProject_Add_StepTargets(${PROJECT_NAME}_${_config_lower} build install)
 
         list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_${_config_lower})
     endforeach()
+
+    if(PYTHON_EXECUTABLE)
+        # only do this once since hdf5-targets is common to all configs
+        ExternalProject_Add_Step(${PROJECT_NAME}_${_config_lower} relocate
+        COMMAND ${PYTHON_EXECUTABLE}
+                ${CMAKE_CURRENT_SOURCE_DIR}/../../replace_absolute_paths.py
+                ${CMAKE_INSTALL_PREFIX}/cmake/hdf5-targets.cmake
+        DEPENDEES build install
+        COMMENT "Running relocation script"
+        )
+        ExternalProject_Add_StepTargets(${PROJECT_NAME}_${_config_lower} relocate)
+    endif()
 
     add_custom_target(${PROJECT_NAME})
     add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_targets})
