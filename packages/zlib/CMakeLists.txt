@@ -55,6 +55,8 @@ set(ZLIB_LIBRARY_RELEASE  \${CMAKE_CURRENT_LIST_DIR}/lib/${_rel_lib} CACHE FILEP
         ExternalProject_Add(
             ${PROJECT_NAME}_${_config_lower}
             DEPENDS ${PROJECT_NAME}_download
+            # prevent mutliple configs from building at the same time
+            ${${PROJECT_NAME}_targets}
             SOURCE_DIR ${SOURCE_DIR}
             DOWNLOAD_COMMAND ""
             CMAKE_ARGS -DCMAKE_BUILD_TYPE=${_config}
