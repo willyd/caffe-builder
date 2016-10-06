@@ -112,7 +112,7 @@ set(Boost_USE_STATIC_RUNTIME ${Boost_USE_STATIC_RUNTIME} CACHE BOOL \"\")
 
         ExternalProject_Add(
             ${_target_name}
-            DEPENDS ${PROJECT_NAME}_download ${${PROJECT_NAME_UPPER}_DEPENDS}
+            DEPENDS ${PROJECT_NAME}_download ${${PROJECT_NAME_UPPER}_DEPENDS} ${${PROJECT_NAME}_targets}
             SOURCE_DIR ${SOURCE_DIR}
             DOWNLOAD_COMMAND ""
             CONFIGURE_COMMAND ""
