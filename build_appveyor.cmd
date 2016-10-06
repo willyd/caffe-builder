@@ -14,7 +14,19 @@ conda install --yes cmake ninja
 mkdir build
 pushd build
 :: Setup the environement for VS 2013 or 2015 x64
-call setenv.cmd %MSVC_TOOLSET% 64
+if "%MSVC_TOOLSET%" == "120" (
+      call "%VS120COMNTOOLS%..\..\VC\vcvarsall.bat" amd64
+)
+if "%MSVC_TOOLSET%" == "140" (
+      call "%VS140COMNTOOLS%..\..\VC\vcvarsall.bat" amd64
+)
+:: Try to call cl.exe
+cl
+if ERRORLEVEL 1 (
+      echo "Failed to find cl.exe"
+      exit /b 1
+)
+
 :: configure
 :: Don't build all packages
 :: Build only selected packages
