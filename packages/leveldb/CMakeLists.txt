@@ -35,7 +35,7 @@ set(LevelDB_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake  CACHE PATH \"\")
     ExternalProject_Add(
         ${PROJECT_NAME}_download
         GIT_REPOSITORY  "https://github.com/willyd/leveldb.git"
-		GIT_TAG 340813b7dc2e09794168fa089ceb321f4e3560a4
+		GIT_TAG f8699ba75e2cc2a2641c019eeab40149734d3390
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         CONFIGURE_COMMAND ""
         BUILD_COMMAND ""

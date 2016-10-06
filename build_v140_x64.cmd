@@ -6,8 +6,7 @@ pushd build_v140_x64
 :: Setup the environement for VS 2013 x64
 call "%VS140COMNTOOLS%..\..\VC\vcvarsall.bat" amd64
 :: configure
-:: Don't build all packages
-:: Build only selected packages
+:: Build all packages
 :: Use shared libraries when possible
 cmake -G Ninja ^
       -D CB_BUILD_ALL:BOOL=ON ^

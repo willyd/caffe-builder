@@ -38,7 +38,7 @@ set(Gflags_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake  CACHE PATH \"\")
 		string(TOLOWER ${_config} _config_lower)
 		ExternalProject_Add(
 			${PROJECT_NAME}_${_config_lower}
-			DEPENDS ${PROJECT_NAME}_download
+			DEPENDS ${PROJECT_NAME}_download ${${PROJECT_NAME}_targets}
 			SOURCE_DIR ${SOURCE_DIR}
 			DOWNLOAD_COMMAND ""
 			CMAKE_ARGS -DCMAKE_BUILD_TYPE=${_config}
