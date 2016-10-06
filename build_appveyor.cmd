@@ -16,11 +16,11 @@ pushd build
 :: Setup the environement for VS 2013 x64
 call "%VS120COMNTOOLS%..\..\VC\vcvarsall.bat" amd64
 :: configure
+:: Don't build all packages
+:: Build only selected packages
+:: Use shared libraries when possible
 cmake -G Ninja ^
-      :: Don't build all packages
       -D CB_BUILD_ALL:BOOL=OFF ^
-      :: Build only selected packages
-      :: Use shared libraries when possible
       -D BUILD_ZLIB:BOOL=%BUILD_ZLIB% ^
       -D ZLIB_BUILD_SHARED_LIBS:BOOL=ON ^
       -D BUILD_GFLAGS:BOOL=%BUILD_GFLAGS% ^
@@ -46,4 +46,5 @@ cmake -G Ninja ^
       ..\
 :: build
 cmake --build .
+popd
 
