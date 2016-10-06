@@ -1,23 +1,49 @@
-:: Download the ninja executable
-call download_ninja.cmd
+@echo off
+:: Set python 2.7 with conda as the default python
+set PATH=C:\Miniconda-x64;C:\Miniconda-x64\Scripts;C:\Miniconda-x64\Library\bin;%PATH%
+:: Check that we have the right python version
+python --version
+:: Add the required channels
+conda config --add channels conda-forge
+:: Update conda
+conda update conda -y
+:: Install cmake and ninja
+conda install --yes cmake ninja
 
-::
-if "%BUILD_PART_1%" == "1" (
-    echo "Building Part 1"
-) else (
-    echo "Building Part 2"
-)
+:: Create build directory and configure cmake
+mkdir build
+pushd build
+:: Setup the environement for VS 2013 x64
+call "%VS120COMNTOOLS%..\..\VC\vcvarsall.bat" amd64
+:: configure
+cmake -G Ninja ^
+      :: Don't build all packages
+      -D CB_BUILD_ALL:BOOL=OFF ^
+      :: Build only selected packages
+      :: Use shared libraries when possible
+      -D BUILD_ZLIB:BOOL=%BUILD_ZLIB% ^
+      -D ZLIB_BUILD_SHARED_LIBS:BOOL=ON ^
+      -D BUILD_GFLAGS:BOOL=%BUILD_GFLAGS% ^
+      -D GFLAGS_BUILD_SHARED_LIBS:BOOL=ON ^
+      -D BUILD_GLOG:BOOL=%BUILD_GLOG% ^
+      -D GLOG_BUILD_SHARED_LIBS:BOOL=ON ^
+      -D BUILD_HDF5:BOOL=%BUILD_HDF5% ^
+      -D HDF5_BUILD_SHARED_LIBS:BOOL=ON ^
+      -D BUILD_BOOST:BOOL=%BUILD_BOOST% ^
+      -D BOOST_BUILD_SHARED_LIBS:BOOL=ON ^
+      -D BUILD_LEVELDB:BOOL=%BUILD_LEVELDB% ^
+      -D LEVELDB_BUILD_SHARED_LIBS:BOOL=OFF ^
+      -D BUILD_LMDB:BOOL=%BUILD_LMDB% ^
+      -D LMDB_BUILD_SHARED_LIBS:BOOL=OFF ^
+      -D BUILD_OPENCV:BOOL=%BUILD_OPENCV% ^
+      -D OPENCV_BUILD_SHARED_LIBS:BOOL=ON ^
+      -D BUILD_PROTOBUF:BOOL=%BUILD_PROTOBUF% ^
+      -D PROTOBUF_BUILD_SHARED_LIBS:BOOL=OFF ^
+      -D BUILD_OPENBLAS:BOOL=%BUILD_OPENBLAS% ^
+      -D OPENBLAS_BUILD_SHARED_LIBS:BOOL=ON ^
+      -D BUILD_SNAPPY:BOOL=%BUILD_SNAPPY% ^
+      -D SNAPPY_BUILD_SHARED_LIBS:BOOL=OFF ^
+      ..\
+:: build
+cmake --build .
 
-:: Add the ninja folder to the path
-set path=%path%;%cd%
-
-:: Set the environment for build with VS (2013, 64-bit)
-call setenv.cmd 120 64
-
-:: Create build_directory and cd to it
-if NOT EXIST .\build (mkdir .\build)
-cd .\build
-
-:: Configure with CMake and build
-cmake -GNinja -C ..\cmake\configs\Appveyor.cmake ..\
-ninja

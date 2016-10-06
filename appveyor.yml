@@ -1,15 +1,38 @@
 version: 1.0.{build}
 
 environment:
-    BUILD_PART_1: 0
+    matrix:
+        - BUILD_ZLIB: 1
+          BUILD_GFLAGS: 0
+          BUILD_GLOG: 0
+          BUILD_HDF5: 0
+          BUILD_BOOST: 0
+          BUILD_LEVELDB: 0
+          BUILD_LMDB: 0
+          BUILD_OPENCV: 0
+          BUILD_PROTOBUF: 0
+          BUILD_OPENBLAS: 0
+          BUILD_SNAPPY: 0
+
+        - BUILD_ZLIB: 0
+          BUILD_GFLAGS: 1
+          BUILD_GLOG: 1
+          BUILD_HDF5: 0
+          BUILD_BOOST: 0
+          BUILD_LEVELDB: 0
+          BUILD_LMDB: 0
+          BUILD_OPENCV: 0
+          BUILD_PROTOBUF: 0
+          BUILD_OPENBLAS: 0
+          BUILD_SNAPPY: 0
 
 build_script:
 - cmd: >-
     call build_appveyor.cmd
-    
+
 artifacts:
-- path: build\install\super-builder-libraries
-  name: super-builder-libraries
+- path: build\install
+  name: libraries
 
 #cache:
 #- build\install\super-builder-libraries
