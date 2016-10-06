@@ -1,5 +1,7 @@
 @echo off
+if NOT EXISTS build_v140_x64 (
 mkdir build_v140_x64
+)
 pushd build_v140_x64
 :: Setup the environement for VS 2013 x64
 call "%VS140COMNTOOLS%..\..\VC\vcvarsall.bat" amd64

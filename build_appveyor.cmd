@@ -13,8 +13,8 @@ conda install --yes cmake ninja
 :: Create build directory and configure cmake
 mkdir build
 pushd build
-:: Setup the environement for VS 2013 x64
-call "%VS120COMNTOOLS%..\..\VC\vcvarsall.bat" amd64
+:: Setup the environement for VS 2013 or 2015 x64
+setenv.cmd %MSVC_TOOLSET% 64
 :: configure
 :: Don't build all packages
 :: Build only selected packages
