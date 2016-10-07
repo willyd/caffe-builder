@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.0 FATAL_ERROR)
 
-set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/install" CACHE PATH "Path where to install binaries")
+set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/libraries" CACHE PATH "Path where to install binaries")
 
 project (caffe-builder)
 
