@@ -1,7 +1,0 @@
-# todo make per project variables like glog, protobuf and cudnn variables 
-# configurable via project. Do this by including other cmake files if they exist.
-set(CMAKE_PREFIX_PATH "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "" FORCE)
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${CMAKE_CURRENT_LIST_DIR}/glog" CACHE PATH "" FORCE)
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${CMAKE_CURRENT_LIST_DIR}/protobuf" CACHE PATH "" FORCE)
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake" CACHE PATH "" FORCE)
-set(CUDNN_ROOT "${CMAKE_CURRENT_LIST_DIR}/cudnn" CACHE PATH "" FORCE)
