@@ -1,5 +1,5 @@
 @echo off
-if NOT EXISTS build_v140_x64 (
+if NOT EXIST build_v140_x64 (
 mkdir build_v140_x64
 )
 pushd build_v140_x64
