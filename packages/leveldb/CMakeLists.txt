@@ -84,7 +84,7 @@ set(LevelDB_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake  CACHE PATH \"\")
         ${PROJECT_NAME}_python
         DEPENDS ${${PROJECT_NAME}_targets}
         GIT_REPOSITORY "https://github.com/willyd/py-leveldb-windows.git"
-        GIT_TAG d60aa685b136a7de43a0af380155840a62c36aa3
+        GIT_TAG d0811231aea8f629c3749183d60d5bfb9abfa6fb
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         CMAKE_ARGS -DCMAKE_BUILD_TYPE=${_config}
                     -DBUILD_SHARED_LIBS=${${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS}
