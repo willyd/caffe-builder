@@ -8,6 +8,7 @@ option(${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS "Build shared libraries for ${PRO
 option(${PROJECT_NAME_UPPER}_WITH_CUDA "Build ${PROJECT_NAME} with CUDA" OFF)
 option(${PROJECT_NAME_UPPER}_CLONE_FFMPEG "Clone ffmpeg windows dependency instead of downloading it" OFF)
 option(${PROJECT_NAME_UPPER}_WITH_PYTHON "Build ${PROJECT_NAME} with python support" OFF)
+option(${PROJECT_NAME_UPPER}_WITH_CONTRIB "Build ${PROJECT_NAME} with contrib module" OFF)
 
 set(${PROJECT_NAME_UPPER}_CMAKE_ARGS
     -DBUILD_DOCS=OFF
@@ -79,7 +80,6 @@ set(OpenCV_STATIC ${OpenCV_STATIC} CACHE BOOL \"\")
     PARENT_SCOPE)
 
     include(ExternalProject)
-    set(_ext_proj_ffmpeg )
     if(${PROJECT_NAME_UPPER}_CLONE_FFMPEG)
         # workaround to get ffmpeg under firewall restrictions
         set(_ext_proj_ffmpeg ${PROJECT_NAME}_clone_ffmpeg)
@@ -95,6 +95,57 @@ set(OpenCV_STATIC ${OpenCV_STATIC} CACHE BOOL \"\")
         ExternalProject_Get_Property("${_ext_proj_ffmpeg}" SOURCE_DIR)
         set(OPENCV_FFMPEG_URL file:///${CB_DOWNLOAD_DIR}/opencv_3rdparty/ffmpeg/)
         list(APPEND ${PROJECT_NAME_UPPER}_CMAKE_ARGS -DOPENCV_FFMPEG_URL=${OPENCV_FFMPEG_URL})
+        list(APPEND ${PROJECT_NAME}_targets  ${_ext_proj_ffmpeg})
+    endif()
+
+        if(${PROJECT_NAME_UPPER}_WITH_CONTRIB)
+        ExternalProject_Add(
+            ${PROJECT_NAME}_download_contrib
+            URL  "https://github.com/opencv/opencv_contrib/archive/3.1.0.tar.gz"
+            DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
+            CONFIGURE_COMMAND ""
+            BUILD_COMMAND ""
+            INSTALL_COMMAND ""
+        )
+
+        ExternalProject_Get_Property("${PROJECT_NAME}_download_contrib" SOURCE_DIR)
+
+        list(APPEND
+            ${PROJECT_NAME_UPPER}_CMAKE_ARGS
+            -DBUILD_opencv_aruco:BOOL=OFF
+            -DBUILD_opencv_bgsegm:BOOL=OFF
+            -DBUILD_opencv_bioinspired:BOOL=OFF
+            -DBUILD_opencv_ccalib:BOOL=OFF
+            -DBUILD_opencv_cnn_3dobj:BOOL=OFF
+            -DBUILD_opencv_contrib_world:BOOL=OFF
+            -DBUILD_opencv_cvv:BOOL=OFF
+            -DBUILD_opencv_datasets:BOOL=ON
+            -DBUILD_opencv_dnn:BOOL=OFF
+            -DBUILD_opencv_dnn_easily_fooled:BOOL=OFF
+            -DBUILD_opencv_dpm:BOOL=OFF
+            -DBUILD_opencv_face:BOOL=ON
+            -DBUILD_opencv_fuzzy:BOOL=OFF
+            -DBUILD_opencv_hdf:BOOL=OFF
+            -DBUILD_opencv_line_descriptor:BOOL=OFF
+            -DBUILD_opencv_matlab:BOOL=OFF
+            -DBUILD_opencv_optflow:BOOL=OFF
+            -DBUILD_opencv_plot:BOOL=OFF
+            -DBUILD_opencv_reg:BOOL=OFF
+            -DBUILD_opencv_rgbd:BOOL=OFF
+            -DBUILD_opencv_saliency:BOOL=ON
+            -DBUILD_opencv_sfm:BOOL=OFF
+            -DBUILD_opencv_stereo:BOOL=OFF
+            -DBUILD_opencv_structured_light:BOOL=OFF
+            -DBUILD_opencv_surface_matching:BOOL=OFF
+            -DBUILD_opencv_text:BOOL=ON
+            -DBUILD_opencv_tracking:BOOL=ON
+            -DBUILD_opencv_xfeatures2d:BOOL=ON
+            -DBUILD_opencv_ximgproc:BOOL=ON
+            -DBUILD_opencv_xobjdetect:BOOL=ON
+            -DBUILD_opencv_xphoto:BOOL=ON
+            -DOPENCV_EXTRA_MODULES_PATH:PATH=${SOURCE_DIR}/modules
+        )
+        list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_download_contrib)
     endif()
 
     ExternalProject_Add(
@@ -117,8 +168,6 @@ set(OpenCV_STATIC ${OpenCV_STATIC} CACHE BOOL \"\")
         ExternalProject_Add(
             ${PROJECT_NAME}_${_config_lower}
             DEPENDS ${PROJECT_NAME}_download
-            # make it depend on the clone of ffmpeg
-            ${_ext_proj_ffmpeg}
             # make it depend on other configure projects
             # so we don't conflict in downloading ippcv and ffmpeg
             ${${PROJECT_NAME}_targets}
