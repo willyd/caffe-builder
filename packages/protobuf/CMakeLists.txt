@@ -79,13 +79,14 @@ set(protobuf_MODULE_COMPATIBLE ON CACHE BOOL \"\")
         ExternalProject_Get_Property("${PROJECT_NAME}_download" SOURCE_DIR)
         ExternalProject_Add(
         ${PROJECT_NAME}_python
+        DEPENDS ${PROJECT_NAME}_download ${${PROJECT_NAME}_targets}
         SOURCE_DIR ${SOURCE_DIR}
         DOWNLOAD_COMMAND ""
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         PATCH_COMMAND ""
         CONFIGURE_COMMAND ""
         BUILD_COMMAND ""
-        INSTALL_COMMAND cd python && ${PYTHON_EXECUTABLE} setup.py setup.py install --single-version-externally-managed --record record.txt
+        INSTALL_COMMAND cd python && ${PYTHON_EXECUTABLE} setup.py install --single-version-externally-managed --record record.txt
         BUILD_IN_SOURCE 1
         )
         list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_python)

@@ -38,6 +38,8 @@ else()
     set(OpenCV_TBB_ARCH ia32)
 endif()
 
+set(OpenCV_ARCH ${OpenCV_ARCH} PARENT_SCOPE)
+
 if(MSVC_VERSION EQUAL 1400)
     set(OpenCV_RUNTIME vc8)
 elseif(MSVC_VERSION EQUAL 1500)
@@ -51,6 +53,8 @@ elseif(MSVC_VERSION EQUAL 1800)
 elseif(MSVC_VERSION EQUAL 1900)
     set(OpenCV_RUNTIME vc14)
 endif()
+
+set(OpenCV_RUNTIME ${OpenCV_RUNTIME} PARENT_SCOPE)
 
 if(${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS)
     set(OpenCV_STATIC OFF)

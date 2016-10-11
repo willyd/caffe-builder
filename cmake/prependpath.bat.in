@@ -1,0 +1,3 @@
+@echo off
+:: Prepend the path variable
+set PATH=%~dp0bin;%~dp0lib;%~dp0@OpenCV_ARCH@\@OpenCV_RUNTIME@\bin;%PATH%

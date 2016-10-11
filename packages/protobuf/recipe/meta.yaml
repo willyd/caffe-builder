@@ -1,0 +1,28 @@
+{% import 'config.yaml' as cfg %}
+
+package:
+    name: protobuf
+    version: 3.1.0{{ cfg.msvc_version_suffix }}
+
+source:
+    path: ../../../
+
+build:
+    number: 1
+    features:
+        - {{ cfg.msvc_feature }} # [win]
+    msvc_compiler: {{ cfg.msvc_compiler }} # [win]
+
+requirements:
+    build:
+        - vc {{ cfg.msvc_feature_package_version }}* # [win]
+        - cmake  # [win]
+        - ninja # [win]
+        - python
+    run:
+        - vc {{ cfg.msvc_feature_package_version }}* # [win]
+        - python
+
+extra:
+    recipe-maintainers:
+        - willyd
