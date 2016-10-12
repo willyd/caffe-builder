@@ -125,6 +125,5 @@ set(Boost_USE_STATIC_RUNTIME ${Boost_USE_STATIC_RUNTIME} CACHE BOOL \"\")
     endforeach()
 
     add_custom_target(${PROJECT_NAME})
-    add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_targets} ) #${${PROJECT_NAME}_install_include})
-    # Consuming projects need to use hdf5-shared, etc as libraries to link to
+    add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_targets})
 endif()

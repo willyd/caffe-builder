@@ -102,6 +102,7 @@ set(OpenCV_STATIC ${OpenCV_STATIC} CACHE BOOL \"\")
         ExternalProject_Add(
             ${PROJECT_NAME}_download_contrib
             URL  "https://github.com/opencv/opencv_contrib/archive/3.1.0.tar.gz"
+            DOWNLOAD_NAME opencv-contrib-3.1.0.zip
             DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
             CONFIGURE_COMMAND ""
             BUILD_COMMAND ""
@@ -150,7 +151,8 @@ set(OpenCV_STATIC ${OpenCV_STATIC} CACHE BOOL \"\")
 
     ExternalProject_Add(
         ${PROJECT_NAME}_download
-        URL  "https://sourceforge.net/projects/opencvlibrary/files/opencv-unix/3.1.0/opencv-3.1.0.zip"
+        URL  "https://github.com/opencv/opencv/archive/3.1.0.zip"
+        DOWNLOAD_NAME opencv-3.1.0.zip
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different
                       "${CMAKE_CURRENT_SOURCE_DIR}/patches/CMakeListsPatch.txt"

@@ -2,8 +2,9 @@
 if NOT EXIST build_v140_x64 (
 mkdir build_v140_x64
 )
+
 pushd build_v140_x64
-:: Setup the environement for VS 2013 x64
+:: Setup the environement for VS 2015 x64
 call "%VS140COMNTOOLS%..\..\VC\vcvarsall.bat" amd64
 :: configure
 :: Build all packages
@@ -21,7 +22,7 @@ cmake -G Ninja ^
       -D PROTOBUF_BUILD_SHARED_LIBS:BOOL=OFF ^
       -D OPENBLAS_BUILD_SHARED_LIBS:BOOL=ON ^
       -D SNAPPY_BUILD_SHARED_LIBS:BOOL=OFF ^
-      ..\
+      %~dp0
 :: build
 cmake --build .
 popd

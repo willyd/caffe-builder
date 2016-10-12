@@ -22,7 +22,7 @@ cmake -G Ninja ^
       -D PROTOBUF_BUILD_SHARED_LIBS:BOOL=OFF ^
       -D OPENBLAS_BUILD_SHARED_LIBS:BOOL=ON ^
       -D SNAPPY_BUILD_SHARED_LIBS:BOOL=OFF ^
-      ..\
+      %~dp0
 :: build
 cmake --build .
 popd
