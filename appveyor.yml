@@ -6,6 +6,7 @@ environment:
           BUILD_ZLIB: 1
           BUILD_GFLAGS: 0
           BUILD_GLOG: 0
+          BUILD_GTEST: 0
           BUILD_HDF5: 1
           BUILD_BOOST: 0
           BUILD_LEVELDB: 0
@@ -15,10 +16,12 @@ environment:
           BUILD_OPENBLAS: 0
           BUILD_SNAPPY: 0
 
+
         - MSVC_TOOLSET: 120
           BUILD_ZLIB: 1
           BUILD_GFLAGS: 0
           BUILD_GLOG: 0
+          BUILD_GTEST: 0
           BUILD_HDF5: 0
           BUILD_BOOST: 1
           BUILD_LEVELDB: 1
@@ -32,6 +35,7 @@ environment:
           BUILD_ZLIB: 0
           BUILD_GFLAGS: 1
           BUILD_GLOG: 1
+          BUILD_GTEST: 0
           BUILD_HDF5: 0
           BUILD_BOOST: 0
           BUILD_LEVELDB: 0
@@ -45,6 +49,7 @@ environment:
           BUILD_ZLIB: 1
           BUILD_GFLAGS: 0
           BUILD_GLOG: 0
+          BUILD_GTEST: 0
           BUILD_HDF5: 0
           BUILD_BOOST: 0
           BUILD_LEVELDB: 0
@@ -54,10 +59,25 @@ environment:
           BUILD_OPENBLAS: 1
           BUILD_SNAPPY: 1
 
+        - MSVC_TOOLSET: 120
+          BUILD_ZLIB: 0
+          BUILD_GFLAGS: 0
+          BUILD_GLOG: 0
+          BUILD_GTEST: 1
+          BUILD_HDF5: 0
+          BUILD_BOOST: 0
+          BUILD_LEVELDB: 0
+          BUILD_LMDB: 0
+          BUILD_OPENCV: 0
+          BUILD_PROTOBUF: 0
+          BUILD_OPENBLAS: 0
+          BUILD_SNAPPY: 0
+
         - MSVC_TOOLSET: 140
           BUILD_ZLIB: 1
           BUILD_GFLAGS: 0
           BUILD_GLOG: 0
+          BUILD_GTEST: 0
           BUILD_HDF5: 1
           BUILD_BOOST: 0
           BUILD_LEVELDB: 0
@@ -71,6 +91,7 @@ environment:
           BUILD_ZLIB: 1
           BUILD_GFLAGS: 0
           BUILD_GLOG: 0
+          BUILD_GTEST: 0
           BUILD_HDF5: 0
           BUILD_BOOST: 1
           BUILD_LEVELDB: 1
@@ -84,6 +105,7 @@ environment:
           BUILD_ZLIB: 0
           BUILD_GFLAGS: 1
           BUILD_GLOG: 1
+          BUILD_GTEST: 0
           BUILD_HDF5: 0
           BUILD_BOOST: 0
           BUILD_LEVELDB: 0
@@ -97,6 +119,7 @@ environment:
           BUILD_ZLIB: 1
           BUILD_GFLAGS: 0
           BUILD_GLOG: 0
+          BUILD_GTEST: 0
           BUILD_HDF5: 0
           BUILD_BOOST: 0
           BUILD_LEVELDB: 0
@@ -105,6 +128,21 @@ environment:
           BUILD_PROTOBUF: 1
           BUILD_OPENBLAS: 1
           BUILD_SNAPPY: 1
+
+        - MSVC_TOOLSET: 140
+          BUILD_ZLIB: 0
+          BUILD_GFLAGS: 0
+          BUILD_GLOG: 0
+          BUILD_GTEST: 1
+          BUILD_HDF5: 0
+          BUILD_BOOST: 0
+          BUILD_LEVELDB: 0
+          BUILD_LMDB: 0
+          BUILD_OPENCV: 0
+          BUILD_PROTOBUF: 0
+          BUILD_OPENBLAS: 0
+          BUILD_SNAPPY: 0
+
 
 build_script:
 - cmd: >-
