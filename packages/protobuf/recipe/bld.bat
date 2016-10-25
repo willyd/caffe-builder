@@ -20,5 +20,5 @@ if errorlevel 1 exit 1
 popd
 
 :: Remove confusing files
-rm %LIBRARY_PREFIX%\caffe-builder-config.cmake
-rm %LIBRARY_PREFIX%\prependpath.bat
+del %LIBRARY_PREFIX%\caffe-builder-config.cmake
+del %LIBRARY_PREFIX%\prependpath.bat

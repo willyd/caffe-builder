@@ -7,7 +7,7 @@ option(BUILD_${PROJECT_NAME_UPPER} "Build ${PROJECT_NAME}" ${CB_BUILD_ALL})
 option(${PROJECT_NAME_UPPER}_BUILD_SHARED_LIBS "Build shared libraries for ${PROJECT_NAME}" ${BUILD_SHARED_LIBS})
 set(${PROJECT_NAME_UPPER}_LIB_PREFIX "" CACHE STRING "Library to prefix the binaries with to avoid name conflicts on windows")
 set(${PROJECT_NAME_UPPER}_CMAKE_ARGS -DZLIB_TARGET_NAME_PREFIX=${${PROJECT_NAME_UPPER}_LIB_PREFIX})
-if(BUILD_${PROJECT_NAME_UPPER})
+if(BUILD_${PROJECT_NAME_UPPER} OR CB_BUILD_CONDA_PKG)
 
     # TODO handle the case where we don't have release and debug
     set(ZLIB_INCLUDE_DIR ${CMAKE_INSTALL_PREFIX}/include PARENT_SCOPE)
@@ -31,6 +31,9 @@ set(ZLIB_LIBRARY_DEBUG  \${CMAKE_CURRENT_LIST_DIR}/lib/${_dgb_lib} CACHE FILEPAT
 set(ZLIB_LIBRARY_RELEASE  \${CMAKE_CURRENT_LIST_DIR}/lib/${_rel_lib} CACHE FILEPATH \"\")
 "
     PARENT_SCOPE)
+endif()
+
+if(BUILD_${PROJECT_NAME_UPPER})
 
     include(ExternalProject)
 
@@ -69,8 +72,9 @@ set(ZLIB_LIBRARY_RELEASE  \${CMAKE_CURRENT_LIST_DIR}/lib/${_rel_lib} CACHE FILEP
         )
         list(APPEND ${PROJECT_NAME}_targets ${PROJECT_NAME}_${_config_lower})
     endforeach()
+endif()
 
-    add_custom_target(${PROJECT_NAME})
+add_custom_target(${PROJECT_NAME})
+if(DEFINED ${PROJECT_NAME}_targets)
     add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_targets})
-
 endif()

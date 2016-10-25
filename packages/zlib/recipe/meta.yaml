@@ -4,14 +4,14 @@
 # alternate version of zlib
 
 package:
-    name: alt-zlib
+    name: caffe-zlib
     version: {{ version }}{{ cfg.msvc_version_suffix }}
 
 source:
     path: ../../../
 
 build:
-    number: 1
+    number: 0
     features:
         - {{ cfg.msvc_feature }} # [win]
     msvc_compiler: {{ cfg.msvc_compiler }}
@@ -19,12 +19,10 @@ build:
 requirements:
     build:
         - vc {{ cfg.msvc_feature_package_version }}* # [win]
-        - cmake-helper # [win]
         - cmake  # [win]
         - ninja # [win]
     run:
         - vc {{ cfg.msvc_feature_package_version }}* # [win]
-        - cmake-helper # [win]
 
 
 about:

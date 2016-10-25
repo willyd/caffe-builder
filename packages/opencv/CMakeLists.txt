@@ -9,8 +9,10 @@ option(${PROJECT_NAME_UPPER}_WITH_CUDA "Build ${PROJECT_NAME} with CUDA" OFF)
 option(${PROJECT_NAME_UPPER}_CLONE_FFMPEG "Clone ffmpeg windows dependency instead of downloading it" OFF)
 option(${PROJECT_NAME_UPPER}_WITH_PYTHON "Build ${PROJECT_NAME} with python support" OFF)
 option(${PROJECT_NAME_UPPER}_WITH_CONTRIB "Build ${PROJECT_NAME} with contrib module" OFF)
+set(${PROJECT_NAME_UPPER}_CMAKE_ARGS "" CACHE STRING "${PROJECT_NAME} cmake args")
 
-set(${PROJECT_NAME_UPPER}_CMAKE_ARGS
+
+set(${PROJECT_NAME_UPPER}_CMAKE_ARGS_DEF
     -DBUILD_DOCS=OFF
     -DBUILD_PERF_TESTS=OFF
     -DBUILD_PACKAGE=OFF
@@ -24,6 +26,7 @@ set(${PROJECT_NAME_UPPER}_CMAKE_ARGS
     -DZLIB_INCLUDE_DIR=${ZLIB_INCLUDE_DIR}
     -DZLIB_LIBRARY_RELEASE=${ZLIB_LIBRARY_RELEASE}
     -DZLIB_LIBRARY_DEBUG=${ZLIB_LIBRARY_DEBUG}
+    ${${PROJECT_NAME_UPPER}_CMAKE_ARGS}
     )
 
 set(${PROJECT_NAME_UPPER}_DEPENDS zlib)
@@ -87,14 +90,13 @@ set(OpenCV_STATIC ${OpenCV_STATIC} CACHE BOOL \"\")
             ${_ext_proj_ffmpeg}
             DOWNLOAD_COMMAND git clone https://github.com/opencv/opencv_3rdparty.git -c core.autocrlf=false
             UPDATE_COMMAND cd ${CB_DOWNLOAD_DIR}/opencv_3rdparty && git checkout ffmpeg/master_20150703
-            DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
             CONFIGURE_COMMAND ""
             BUILD_COMMAND ""
             INSTALL_COMMAND ""
         )
         ExternalProject_Get_Property("${_ext_proj_ffmpeg}" SOURCE_DIR)
         set(OPENCV_FFMPEG_URL file:///${CB_DOWNLOAD_DIR}/opencv_3rdparty/ffmpeg/)
-        list(APPEND ${PROJECT_NAME_UPPER}_CMAKE_ARGS -DOPENCV_FFMPEG_URL=${OPENCV_FFMPEG_URL})
+        list(APPEND ${PROJECT_NAME_UPPER}_CMAKE_ARGS_DEF -DOPENCV_FFMPEG_URL=${OPENCV_FFMPEG_URL})
         list(APPEND ${PROJECT_NAME}_targets  ${_ext_proj_ffmpeg})
     endif()
 
@@ -112,7 +114,7 @@ set(OpenCV_STATIC ${OpenCV_STATIC} CACHE BOOL \"\")
         ExternalProject_Get_Property("${PROJECT_NAME}_download_contrib" SOURCE_DIR)
 
         list(APPEND
-            ${PROJECT_NAME_UPPER}_CMAKE_ARGS
+            ${PROJECT_NAME_UPPER}_CMAKE_ARGS_DEF
             -DBUILD_opencv_aruco:BOOL=OFF
             -DBUILD_opencv_bgsegm:BOOL=OFF
             -DBUILD_opencv_bioinspired:BOOL=OFF
@@ -182,7 +184,7 @@ set(OpenCV_STATIC ${OpenCV_STATIC} CACHE BOOL \"\")
                     -DCMAKE_PREFIX_PATH=${CMAKE_INSTALL_PREFIX}
                     -DCMAKE_MODULE_PATH=${CB_CMAKE_MODULE_PATH}
                     -DCMAKE_DEBUG_POSTFIX=d
-                    ${${PROJECT_NAME_UPPER}_CMAKE_ARGS}
+                    ${${PROJECT_NAME_UPPER}_CMAKE_ARGS_DEF}
             BUILD_COMMAND ${CMAKE_COMMAND} --build . --target install --config ${_config}
             INSTALL_COMMAND ${CMAKE_COMMAND} --build . --target install --config ${_config}
         )
