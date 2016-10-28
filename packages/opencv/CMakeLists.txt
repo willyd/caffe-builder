@@ -11,6 +11,9 @@ option(${PROJECT_NAME_UPPER}_WITH_PYTHON "Build ${PROJECT_NAME} with python supp
 option(${PROJECT_NAME_UPPER}_WITH_CONTRIB "Build ${PROJECT_NAME} with contrib module" OFF)
 set(${PROJECT_NAME_UPPER}_CMAKE_ARGS "" CACHE STRING "${PROJECT_NAME} cmake args")
 
+if(${PROJECT_NAME_UPPER}_WITH_PYTHON AND NOT PYTHON_EXECUTABLE)
+    message(FATAL_ERROR "${PROJECT_NAME_UPPER}_WITH_PYTHON specified but no PYTHON_EXECUTABLE")
+endif()
 
 set(${PROJECT_NAME_UPPER}_CMAKE_ARGS_DEF
     -DBUILD_DOCS=OFF
@@ -21,13 +24,29 @@ set(${PROJECT_NAME_UPPER}_CMAKE_ARGS_DEF
     -DCUDA_ARCH_BIN="3.0 3.5 3.7 5.0 5.2"
     -DCUDA_ARCH_PTX="3.0"
     -DBUILD_ZLIB=OFF
-    -DBUILD_opencv_python2:BOOL=${${PROJECT_NAME_UPPER}_WITH_PYTHON}
-    -DBUILD_opencv_python3:BOOL=${${PROJECT_NAME_UPPER}_WITH_PYTHON}
     -DZLIB_INCLUDE_DIR=${ZLIB_INCLUDE_DIR}
     -DZLIB_LIBRARY_RELEASE=${ZLIB_LIBRARY_RELEASE}
     -DZLIB_LIBRARY_DEBUG=${ZLIB_LIBRARY_DEBUG}
     ${${PROJECT_NAME_UPPER}_CMAKE_ARGS}
     )
+
+if(${PROJECT_NAME_UPPER}_WITH_PYTHON)
+    list(APPEND ${PROJECT_NAME_UPPER}_CMAKE_ARGS_DEF
+                -DPYTHON_EXECUTABLE=${PYTHON_EXECUTABLE})
+    if(${PYTHON_VERSION_MAJOR} EQUAL 2)
+    list(APPEND ${PROJECT_NAME_UPPER}_CMAKE_ARGS_DEF
+        -DBUILD_opencv_python2:BOOL=ON
+        -DBUILD_opencv_python3:BOOL=OFF)
+    else()
+    list(APPEND ${PROJECT_NAME_UPPER}_CMAKE_ARGS_DEF
+        -DBUILD_opencv_python2:BOOL=OFF
+        -DBUILD_opencv_python3:BOOL=ON)
+    endif()
+else()
+    list(APPEND ${PROJECT_NAME_UPPER}_CMAKE_ARGS_DEF
+        -DBUILD_opencv_python2:BOOL=OFF
+        -DBUILD_opencv_python3:BOOL=OFF)
+endif()
 
 set(${PROJECT_NAME_UPPER}_DEPENDS zlib)
 
@@ -70,7 +89,7 @@ endif()
 
 
 
-if(BUILD_${PROJECT_NAME_UPPER})
+if(BUILD_${PROJECT_NAME_UPPER} OR CB_BUILD_CONDA_PKG)
 
     set(${PROJECT_NAME_UPPER}_CONFIG
 "
@@ -82,13 +101,17 @@ set(OpenCV_STATIC ${OpenCV_STATIC} CACHE BOOL \"\")
 "
     PARENT_SCOPE)
 
+endif()
+
+if(BUILD_${PROJECT_NAME_UPPER})
+
     include(ExternalProject)
     if(${PROJECT_NAME_UPPER}_CLONE_FFMPEG)
         # workaround to get ffmpeg under firewall restrictions
         set(_ext_proj_ffmpeg ${PROJECT_NAME}_clone_ffmpeg)
         ExternalProject_Add(
             ${_ext_proj_ffmpeg}
-            DOWNLOAD_COMMAND git clone https://github.com/opencv/opencv_3rdparty.git -c core.autocrlf=false
+            DOWNLOAD_COMMAND cd ${CB_DOWNLOAD_DIR} && git clone https://github.com/opencv/opencv_3rdparty.git -c core.autocrlf=false
             UPDATE_COMMAND cd ${CB_DOWNLOAD_DIR}/opencv_3rdparty && git checkout ffmpeg/master_20150703
             CONFIGURE_COMMAND ""
             BUILD_COMMAND ""

@@ -1,0 +1,42 @@
+{% set version = "3.1.0" %}
+{% import 'config.yaml' as cfg %}
+
+# alternate version of zlib
+
+package:
+    name: opencv
+    version: {{ version }}{{ cfg.msvc_version_suffix }}
+
+source:
+    path: ../../../
+
+build:
+    number: 0
+    features:
+        - {{ cfg.msvc_feature }} # [win]
+    msvc_compiler: {{ cfg.msvc_compiler }}
+
+requirements:
+    build:
+        - vc {{ cfg.msvc_feature_package_version }}* # [win]
+        - cmake >=3.6  # [win]
+        - ninja # [win]
+        - caffe-zlib 1.2.8{{ cfg.msvc_version_suffix }}* # [win]
+        - python
+        - numpy
+    run:
+        - vc {{ cfg.msvc_feature_package_version }}* # [win]
+        - caffe-zlib 1.2.8{{ cfg.msvc_version_suffix }}* # [win]
+        - python
+        - numpy
+
+
+about:
+  home: http://opencv.org/
+  license: BSD 3-clause
+  summary: Computer vision and machine learning software library.
+
+
+extra:
+    recipe-maintainers:
+        - willyd
