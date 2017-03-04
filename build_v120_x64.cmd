@@ -1,3 +1,4 @@
+@setlocal
 @echo off
 if NOT EXIST build_v120_x64 (
 mkdir build_v120_x64
@@ -28,3 +29,4 @@ cmake -G Ninja ^
 :: build
 cmake --build .
 popd
+@endlocal
