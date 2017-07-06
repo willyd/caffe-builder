@@ -33,7 +33,7 @@ set(HDF5_ROOT_DIR \${CMAKE_CURRENT_LIST_DIR}/cmake CACHE PATH \"\")
     include(ExternalProject)
     ExternalProject_Add(
         ${PROJECT_NAME}_download
-        URL https://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.16/src/CMake-hdf5-1.8.16.zip
+        URL https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.16/src/CMake-hdf5-1.8.16.zip
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         CONFIGURE_COMMAND ""
         BUILD_COMMAND ""
