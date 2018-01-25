@@ -40,7 +40,7 @@ set(protobuf_MODULE_COMPATIBLE ON CACHE BOOL \"\")
     ExternalProject_Add(
         ${PROJECT_NAME}_download
         URL https://github.com/google/protobuf/archive/v3.1.0/protobuf-v3.1.0.tar.gz
-        URL_MD5 14a532a7538551d5def317bfca41dace
+        URL_MD5 39d6a4fa549c0cce164aa3064b1492dc
         DOWNLOAD_DIR ${CB_DOWNLOAD_DIR}
         PATCH_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/patches/type_traits.h src/google/protobuf/stubs/type_traits.h
         CONFIGURE_COMMAND ""
